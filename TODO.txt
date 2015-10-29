@@ -1,0 +1,17 @@
+TODO
+-------------
+
+Code the UI menu consisting of :
+	1) walk / stop walking
+	2) enable / disable scientific mode
+	3) turn on / off music
+	
+Code the contextual events in checkpoints :
+	1) teleport to chekpoints
+	2) stop simulation
+	
+Code the contextual events outer checkpoints :
+	1) watch door => open / close
+	2) watch window => open / close
+	2) watch heatings => lower / raise / turn on / turn off
+	3) watch light switcher => turn on / off
