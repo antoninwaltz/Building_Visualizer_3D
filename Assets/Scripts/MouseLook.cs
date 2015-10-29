@@ -52,7 +52,7 @@ public class MouseLook : MonoBehaviour {
 			transform.localEulerAngles = new Vector3(-m_rotationY, transform.localEulerAngles.y, 0);
 		}
 		
-		m_panelMenu.transform.Rotate(new Vector3(0, 0, -m_rotationX));
+		m_panelMenu.transform.Rotate(new Vector3(0, 0, m_rotationX));
 	}
 	
 	private float GetRotationXFromMouse()
