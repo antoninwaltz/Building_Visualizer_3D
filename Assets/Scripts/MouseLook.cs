@@ -60,6 +60,7 @@ public class MouseLook : MonoBehaviour {
 		}
 		
 		m_panelMenu.transform.Rotate(new Vector3(0, 0, m_rotationX));
+		Debug.Log ("dfgdfgdfgdfg");
 	}
 	
 	private float GetRotationXFromDevice()
