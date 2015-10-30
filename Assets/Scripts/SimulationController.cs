@@ -8,9 +8,12 @@ public class SimulationController : MonoBehaviour {
 	
 	public Camera m_rightCamera;
 	public Camera m_uiRightCamera;
-	
+
+	public static bool m_volumeON;
+
 	// Use this for initialization
 	void Start () {
+		m_volumeON = true;
 	}
 	
 	// Update is called once per frame
