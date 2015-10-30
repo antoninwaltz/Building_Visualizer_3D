@@ -18,7 +18,7 @@ public class DiveMouseLook : MonoBehaviour {
 	float m_rotationY = 0F;
 	bool mouse_on = true;
 	
-	public PlayerMenuHandler m_menuHandler;
+	private PlayerMenuHandler m_menuHandler;
 	
 	public GameObject m_panelRightBottomMenu;
 	public GameObject m_panelLeftBottomMenu;
@@ -37,6 +37,8 @@ public class DiveMouseLook : MonoBehaviour {
 		/* Make the rigid body not change rotation */
 		if (GetComponent<Rigidbody>())
 			GetComponent<Rigidbody>().freezeRotation = true;
+
+		m_menuHandler = GetComponent<PlayerMenuHandler> ();
 	}
 	
 	void Update ()
