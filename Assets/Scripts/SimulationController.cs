@@ -2,15 +2,13 @@
 using System.Collections;
 
 public class SimulationController : MonoBehaviour {
-
-	public static bool m_isWalking = true;
 	
 	public Camera m_leftCamera;
 	public Camera m_uiLeftCamera;
 	
 	public Camera m_rightCamera;
 	public Camera m_uiRightCamera;
-
+	
 	// Use this for initialization
 	void Start () {
 	}
@@ -19,12 +17,7 @@ public class SimulationController : MonoBehaviour {
 	void Update () {
 		
 	}
-
-	public void SetIsWalking(bool _isWalking)
-	{
-		m_isWalking = _isWalking;
-	}
-
+	
 	void LateUpdate()
 	{
 		m_uiLeftCamera.transform.rotation = m_leftCamera.transform.rotation;
