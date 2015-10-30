@@ -51,7 +51,6 @@
      <Compile Include="Assets\Dive\Scripts\OffsetCenter.cs" />
      <Compile Include="Assets\Dive\Scripts\OpenDiveSensor.cs" />
      <Compile Include="Assets\Scripts\BodyMovement.cs" />
-     <Compile Include="Assets\Scripts\MouseLook.cs" />
      <Compile Include="Assets\Scripts\SimulationController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

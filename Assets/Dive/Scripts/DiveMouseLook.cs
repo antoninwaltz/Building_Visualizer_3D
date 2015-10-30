@@ -21,6 +21,17 @@ public class DiveMouseLook : MonoBehaviour {
 	public GameObject m_panelRightBottomMenu;
 	public GameObject m_panelLeftBottomMenu;
 
+	public Camera m_leftCamera;
+	public Camera m_rightCamera;
+	
+	public GameObject m_leftCursor;
+	public GameObject m_rightCursor;
+
+	public GameObject m_standOption;
+	public GameObject m_walkOption;
+	public GameObject m_runOption;
+	private Vector3 m_optionSize;
+
 	void Start ()
 	{
 		if (Application.platform == RuntimePlatform.Android)
@@ -30,34 +41,80 @@ public class DiveMouseLook : MonoBehaviour {
 
 		/* Make the rigid body not change rotation */
 		if (GetComponent<Rigidbody>())
-			GetComponent<Rigidbody>().freezeRotation = true;	
+			GetComponent<Rigidbody>().freezeRotation = true;
+
+		m_optionSize = Vector3.Scale(m_standOption.GetComponent<SpriteRenderer>().sprite.bounds.size, m_standOption.transform.localScale);
 	}
 
 	void Update ()
 	{	
 		if (mouse_on){
-			
-			/* Computes the X and Y rotation from the current device used. */
-			m_rotationX  = Input.GetAxis ("Mouse X") * m_sensitivityX;
-			m_rotationY += Input.GetAxis ("Mouse Y") * m_sensitivityY;
-			
-			if (m_axes == RotationAxes.MouseXAndY)
-			{
-				m_rotationX += transform.localEulerAngles.y;
-				m_rotationY = Mathf.Clamp (m_rotationY, m_minimumY, m_maximumY);
-				
-				transform.localEulerAngles = new Vector3(-m_rotationY, m_rotationX, 0);
-			}
-			else if (m_axes == RotationAxes.MouseX)
-			{
-				transform.Rotate(0, m_rotationX, 0);
-			}
-			else
-			{
-				m_rotationY = Mathf.Clamp (m_rotationY, m_minimumY, m_maximumY);
-				
-				transform.localEulerAngles = new Vector3(-m_rotationY, transform.localEulerAngles.y, 0);
-			}
+
+			HandleRotation();
+
+			HandleMenuPointer();
+
 		}
+	}
+
+	private void HandleRotation()
+	{
+		/* Computes the X and Y rotation from the current device used. */
+		m_rotationX  = Input.GetAxis ("Mouse X") * m_sensitivityX;
+		m_rotationY += Input.GetAxis ("Mouse Y") * m_sensitivityY;
+		
+		if (m_axes == RotationAxes.MouseXAndY)
+		{
+			m_rotationX += transform.localEulerAngles.y;
+			m_rotationY = Mathf.Clamp (m_rotationY, m_minimumY, m_maximumY);
+			
+			transform.localEulerAngles = new Vector3(-m_rotationY, m_rotationX, 0);
+		}
+		else if (m_axes == RotationAxes.MouseX)
+		{
+			transform.Rotate(0, m_rotationX, 0);
+		}
+		else
+		{
+			m_rotationY = Mathf.Clamp (m_rotationY, m_minimumY, m_maximumY);
+			
+			transform.localEulerAngles = new Vector3(-m_rotationY, transform.localEulerAngles.y, 0);
+		}
+	}
+
+	private void HandleMenuPointer()
+	{
+		HandleStandOptionHover ();
+
+		HandleWalkOptionHover ();
+
+		HandleRunOptionHover ();
+	}
+
+	private void HandleStandOptionHover()
+	{
+		Bounds spriteBounds = new Bounds(m_leftCamera.WorldToScreenPoint(m_standOption.transform.position), m_optionSize);
+		Vector3 curorPosition = m_leftCamera.WorldToScreenPoint(m_leftCursor.transform.position);
+		
+		if(spriteBounds.min.x <= curorPosition.x && spriteBounds.min.y <= curorPosition.y && spriteBounds.max.x >= curorPosition.x && spriteBounds.max.y >= curorPosition.y)
+			Debug.Log("stand OK !");
+	}
+	
+	private void HandleWalkOptionHover()
+	{
+		Bounds spriteBounds = new Bounds(m_leftCamera.WorldToScreenPoint(m_walkOption.transform.position), m_optionSize);
+		Vector3 curorPosition = m_leftCamera.WorldToScreenPoint(m_leftCursor.transform.position);
+		
+		if(spriteBounds.min.x <= curorPosition.x && spriteBounds.min.y <= curorPosition.y && spriteBounds.max.x >= curorPosition.x && spriteBounds.max.y >= curorPosition.y)
+			Debug.Log("walk OK !");
+	}
+	
+	private void HandleRunOptionHover()
+	{
+		Bounds spriteBounds = new Bounds(m_leftCamera.WorldToScreenPoint(m_runOption.transform.position), m_optionSize);
+		Vector3 curorPosition = m_leftCamera.WorldToScreenPoint(m_leftCursor.transform.position);
+		
+		if(spriteBounds.min.x <= curorPosition.x && spriteBounds.min.y <= curorPosition.y && spriteBounds.max.x >= curorPosition.x && spriteBounds.max.y >= curorPosition.y)
+			Debug.Log("run OK !");
 	}
 }
