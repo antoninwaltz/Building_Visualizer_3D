@@ -12,12 +12,16 @@ public class BodyMovement : MonoBehaviour {
 	
 	private bool m_isWalking;
 	private bool m_isRunning;
-	
+
+	private float m_minYAngle;
+	public float m_slowZoneAngleLimit;
+
 	// Use this for initialization
 	void Start () {
 		m_controller = GetComponent<CharacterController> ();
 		m_isWalking = false;
 		m_isRunning = false;
+		m_minYAngle = GetComponent<DiveMouseLook> ().GetMinYAngle ();
 	}
 	
 	// Update is called once per frame
@@ -31,10 +35,25 @@ public class BodyMovement : MonoBehaviour {
 			m_movementDirection = Vector3.zero;
 
 		m_movementDirection = transform.rotation * m_movementDirection;
+
+		float signedAngle = GetSignedXEulerAngle (transform.eulerAngles.x);
+		Debug.Log (signedAngle);
+		if (signedAngle <= m_slowZoneAngleLimit) 
+		{
+			m_movementDirection *= (m_minYAngle - signedAngle)/m_minYAngle;
+		}
+		
 		m_movementDirection.y -= m_gravity * Time.deltaTime;
 		m_controller.Move (m_movementDirection);
 	}
-	
+
+	private float GetSignedXEulerAngle(float _xEulerAngle)
+	{
+		if (_xEulerAngle > 180)
+			return 180 - transform.eulerAngles.x % 180;
+		return -_xEulerAngle;
+	}
+
 	public void StopMoving()
 	{
 		m_isWalking = false;

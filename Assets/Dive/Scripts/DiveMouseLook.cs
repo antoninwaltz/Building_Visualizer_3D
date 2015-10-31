@@ -77,4 +77,13 @@ public class DiveMouseLook : MonoBehaviour {
 		}
 	}
 	
+	public float GetMaxYAngle()
+	{
+		return m_maximumY;
+	}
+
+	public float GetMinYAngle()
+	{
+		return m_minimumY;
+	}
 }
