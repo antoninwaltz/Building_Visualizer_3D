@@ -35,7 +35,9 @@ public class PlayerMenuHandler : MonoBehaviour {
 	private bool m_resetPreviousPointedOption;
 	
 	public static float s_optionHoverTimeLimit;
-	
+
+	private GameObject[] m_menuOptionsHolo;
+
 	// Use this for initialization
 	void Start () {
 		m_bodyMovement = GetComponent<BodyMovement> ();
@@ -44,6 +46,7 @@ public class PlayerMenuHandler : MonoBehaviour {
 		PlayerMenuHandler.s_optionHoverTimeLimit = 1.5F;
 		m_standLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
 		m_standRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
+		m_menuOptionsHolo = GameObject.FindGameObjectsWithTag("menuOptionHalo");
 	}
 	
 	public void HandleMenuPointer()
@@ -52,9 +55,14 @@ public class PlayerMenuHandler : MonoBehaviour {
 
 		HandleMovementOptionHover (cursorPosition);
 		HandleVolumeHover (cursorPosition);
-		
-		if (m_resetPreviousPointedOption == true)
+
+		//TODO
+		if (m_resetPreviousPointedOption == true) 
+		{
 			m_previousPointedOption = null;
+			foreach(GameObject o in m_menuOptionsHolo)
+				o.SetActive(false);
+		}
 	}
 
 	private void HandleMovementOptionHover(Vector3 _cursorPosition)
@@ -74,6 +82,8 @@ public class PlayerMenuHandler : MonoBehaviour {
 			{
 				m_previousPointedOption = m_standLeftOption;
 				m_selectTimer = 0F;
+				m_standLeftOption.transform.GetChild(0).gameObject.SetActive(true);
+				m_standRightOption.transform.GetChild(0).gameObject.SetActive(true);
 			}
 			else
 				m_selectTimer += Time.deltaTime;
@@ -87,6 +97,9 @@ public class PlayerMenuHandler : MonoBehaviour {
 				m_walkRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
 				m_runLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
 				m_runRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
+				
+				m_standLeftOption.transform.GetChild(0).gameObject.SetActive(false);
+				m_standRightOption.transform.GetChild(0).gameObject.SetActive(false);
 			}
 			
 			m_resetPreviousPointedOption = false;
@@ -105,6 +118,8 @@ public class PlayerMenuHandler : MonoBehaviour {
 			{
 				m_previousPointedOption = m_walkLeftOption;
 				m_selectTimer = 0F;
+				m_walkLeftOption.transform.GetChild(0).gameObject.SetActive(true);
+				m_walkRightOption.transform.GetChild(0).gameObject.SetActive(true);
 			}
 			else
 				m_selectTimer += Time.deltaTime;
@@ -118,6 +133,9 @@ public class PlayerMenuHandler : MonoBehaviour {
 				m_walkRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
 				m_runLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
 				m_runRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
+				
+				m_walkLeftOption.transform.GetChild(0).gameObject.SetActive(false);
+				m_walkRightOption.transform.GetChild(0).gameObject.SetActive(false);
 			}
 			
 			m_resetPreviousPointedOption = false;
@@ -134,6 +152,8 @@ public class PlayerMenuHandler : MonoBehaviour {
 			{
 				m_previousPointedOption = m_runLeftOption;
 				m_selectTimer = 0F;
+				m_runLeftOption.transform.GetChild(0).gameObject.SetActive(true);
+				m_runRightOption.transform.GetChild(0).gameObject.SetActive(true);
 			}	
 			else
 				m_selectTimer += Time.deltaTime;
@@ -147,6 +167,9 @@ public class PlayerMenuHandler : MonoBehaviour {
 				m_walkRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
 				m_runLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
 				m_runRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
+				
+				m_runLeftOption.transform.GetChild(0).gameObject.SetActive(false);
+				m_runRightOption.transform.GetChild(0).gameObject.SetActive(false);
 			}
 			
 			m_resetPreviousPointedOption = false;
@@ -169,6 +192,16 @@ public class PlayerMenuHandler : MonoBehaviour {
 			{
 				m_previousPointedOption = volume;
 				m_selectTimer = 0F;
+				if (SimulationController.m_volumeON)
+				{
+					m_volumeONLeftOption.transform.GetChild(0).gameObject.SetActive(true);
+					m_volumeONRightOption.transform.GetChild(0).gameObject.SetActive(true);
+				}
+				else
+				{
+					m_volumeOFFLeftOption.transform.GetChild(0).gameObject.SetActive(true);
+					m_volumeOFFRightOption.transform.GetChild(0).gameObject.SetActive(true);
+				}
 			}	
 			else
 				m_selectTimer += Time.deltaTime;
@@ -190,6 +223,10 @@ public class PlayerMenuHandler : MonoBehaviour {
 					m_volumeONLeftOption.SetActive(true);
 					m_volumeONRightOption.SetActive(true);
 				}
+				m_volumeOFFLeftOption.transform.GetChild(0).gameObject.SetActive(false);
+				m_volumeOFFRightOption.transform.GetChild(0).gameObject.SetActive(false);
+				m_volumeONLeftOption.transform.GetChild(0).gameObject.SetActive(false);
+				m_volumeONRightOption.transform.GetChild(0).gameObject.SetActive(false);
 			}
 			
 			m_resetPreviousPointedOption = false;

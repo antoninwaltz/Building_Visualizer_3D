@@ -2,9 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class DiveMouseLook : MonoBehaviour {
-	
-	public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
-	public RotationAxes m_axes = RotationAxes.MouseXAndY;
+
 	public float m_sensitivityX;
 	public float m_sensitivityY;
 	
@@ -55,35 +53,23 @@ public class DiveMouseLook : MonoBehaviour {
 	private void HandleRotation()
 	{
 		/* Computes the X and Y rotation from the current device used. */
-		m_rotationX  = Input.GetAxis ("Mouse X") * m_sensitivityX;
-		m_rotationY += Input.GetAxis ("Mouse Y") * m_sensitivityY;
+		m_rotationY  = Input.GetAxis ("Mouse X") * m_sensitivityY;
+		m_rotationX += Input.GetAxis ("Mouse Y") * m_sensitivityX;
+
+		m_rotationY += transform.localEulerAngles.y;
+		m_rotationX = Mathf.Clamp (m_rotationX, m_minimumX, m_maximumX);
 		
-		if (m_axes == RotationAxes.MouseXAndY)
-		{
-			m_rotationX += transform.localEulerAngles.y;
-			m_rotationY = Mathf.Clamp (m_rotationY, m_minimumY, m_maximumY);
-			
-			transform.localEulerAngles = new Vector3(-m_rotationY, m_rotationX, 0);
-		}
-		else if (m_axes == RotationAxes.MouseX)
-		{
-			transform.Rotate(0, m_rotationX, 0);
-		}
-		else
-		{
-			m_rotationY = Mathf.Clamp (m_rotationY, m_minimumY, m_maximumY);
-			
-			transform.localEulerAngles = new Vector3(-m_rotationY, transform.localEulerAngles.y, 0);
-		}
+		transform.localEulerAngles = new Vector3(-m_rotationX, m_rotationY, 0);
+
 	}
 	
-	public float GetMaxYAngle()
+	public float GetMaxXAngle()
 	{
-		return m_maximumY;
+		return m_maximumX;
 	}
 
-	public float GetMinYAngle()
+	public float GetMinXAngle()
 	{
-		return m_minimumY;
+		return m_minimumX;
 	}
 }
