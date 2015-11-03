@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public enum BodyState {Standing = 0, Walking = 1, Running = 2}
@@ -32,6 +32,8 @@ public class BodyMovement : MonoBehaviour {
 	/** Angle from which the body starts slowing down. */
 	public float m_slowZoneAngleLimit;
 
+	public GameObject m_playerMenu;
+
 	/**
 	 * Start()
 	 * Method used for initialization.
@@ -40,8 +42,13 @@ public class BodyMovement : MonoBehaviour {
 	 */
 	private void Start () {
 		m_controller = GetComponent<CharacterController> ();
+		
+		/* Make the rigid body not change rotation */
+		if (GetComponent<Rigidbody>())
+			GetComponent<Rigidbody>().freezeRotation = true;
+
 		m_bodyState = BodyState.Standing;
-		m_minXAngle = GetComponent<DiveMouseLook> ().GetMinXAngle ();
+		m_minXAngle = 25;
 	}
 
 	/**
@@ -79,6 +86,8 @@ public class BodyMovement : MonoBehaviour {
 
 		/* The body is moved towards the movement direction Vector3. */
 		m_controller.Move (m_movementDirection);
+
+		m_playerMenu.transform.position = m_controller.transform.position;
 	}
 
 	/**

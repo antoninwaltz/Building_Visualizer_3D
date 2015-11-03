@@ -2,12 +2,6 @@
 using System.Collections;
 
 public class SimulationController : MonoBehaviour {
-	
-	public Camera m_leftCamera;
-	public Camera m_uiLeftCamera;
-	
-	public Camera m_rightCamera;
-	public Camera m_uiRightCamera;
 
 	public static bool m_volumeON;
 
@@ -23,7 +17,11 @@ public class SimulationController : MonoBehaviour {
 	
 	void LateUpdate()
 	{
-		m_uiLeftCamera.transform.rotation = m_leftCamera.transform.rotation;
-		m_uiRightCamera.transform.rotation = m_rightCamera.transform.rotation;
+
+	}
+
+	public void DebugEvent(string s)
+	{
+		Debug.Log (s);
 	}
 }
