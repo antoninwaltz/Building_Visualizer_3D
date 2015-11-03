@@ -1,235 +1,92 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+
+public enum PlayerMenuOption {Stand = 0, Walk = 1, Run = 2, ShortestPath = 3, Volume = 4, ScientificMode = 5};
 
 public class PlayerMenuHandler : MonoBehaviour {
-	
-	private BodyMovement m_bodyMovement;
-	
-	public Camera m_leftUICamera;
-	public Camera m_rightUICamera;
 
-	public GameObject m_leftCursor;
-	
-	public GameObject m_standLeftOption;
-	public GameObject m_standRightOption;
-	public GameObject m_walkLeftOption;
-	public GameObject m_walkRightOption;
-	public GameObject m_runLeftOption;
-	public GameObject m_runRightOption;
-	
-	public GameObject m_shPathLeftOption;
-	public GameObject m_shPathRightOption;
+	//public BodyMovement m_bodyMovement;
 
-	public GameObject m_scientificLeftOption;
-	public GameObject m_scientificRightOption;
-	
-	public GameObject m_volumeONLeftOption;
-	public GameObject m_volumeOFFLeftOption;
-	public GameObject m_volumeONRightOption;
-	public GameObject m_volumeOFFRightOption;
+	private Dictionary<PlayerMenuOption, GameObject> m_menuOptions;
+	public GameObject m_standOption;
+	public GameObject m_walkOption;
+	public GameObject m_runOption;
+	public GameObject m_shPathOption;
+	public GameObject m_volumeOption;
+	public GameObject m_scientificModeOption;
 
-	private Vector3 m_optionSize;
-	
-	private GameObject m_previousPointedOption;
+	private GameObject m_currentPointedOption;
+
+	private bool m_isHovering;
 	private float m_selectTimer;
-	private bool m_resetPreviousPointedOption;
 	
-	public static float s_optionHoverTimeLimit;
-
-	private GameObject[] m_menuOptionsHolo;
+	public float m_optionHoverTimeLimit;
 
 	// Use this for initialization
 	void Start () {
-		m_bodyMovement = GetComponent<BodyMovement> ();
-		m_optionSize = Vector3.Scale(m_standLeftOption.GetComponent<SpriteRenderer>().sprite.bounds.size, m_standLeftOption.transform.localScale);
 		m_selectTimer = 0F;
-		PlayerMenuHandler.s_optionHoverTimeLimit = 1.5F;
-		m_standLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
-		m_standRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
-		m_menuOptionsHolo = GameObject.FindGameObjectsWithTag("menuOptionHalo");
+		m_currentPointedOption = null;
+
+		m_menuOptions = new Dictionary<PlayerMenuOption, GameObject> ();
+		m_menuOptions.Add(PlayerMenuOption.Stand,m_standOption);
+		m_menuOptions.Add(PlayerMenuOption.Walk,m_walkOption);
+		m_menuOptions.Add(PlayerMenuOption.Run,m_runOption);
+		m_menuOptions.Add(PlayerMenuOption.ShortestPath,m_shPathOption);
+		m_menuOptions.Add(PlayerMenuOption.Volume,m_volumeOption);
+		m_menuOptions.Add(PlayerMenuOption.ScientificMode,m_scientificModeOption);
+
+		m_standOption.GetComponent<Button> ().interactable = false;
+	}
+
+	public void EnteredMenuOption(int _option)
+	{
+		m_menuOptions.TryGetValue ((PlayerMenuOption)_option, out m_currentPointedOption);
+		
+		m_isHovering = true;
 	}
 	
-	public void HandleMenuPointer()
+	public void ExitedMenuOption()
 	{
-		Vector3 cursorPosition = m_leftUICamera.WorldToScreenPoint(m_leftCursor.transform.position);
+		m_currentPointedOption = null;
+		
+		m_isHovering = false;
 
-		HandleMovementOptionHover (cursorPosition);
-		HandleVolumeHover (cursorPosition);
+		m_selectTimer = 0F;
+	}
 
-		//TODO
-		if (m_resetPreviousPointedOption == true) 
+	private void Update()
+	{
+		if (m_isHovering && m_currentPointedOption.GetComponent<Button>().IsInteractable()) 
 		{
-			m_previousPointedOption = null;
-			foreach(GameObject o in m_menuOptionsHolo)
-				o.SetActive(false);
+			m_selectTimer += Time.deltaTime;
+
+			if(m_selectTimer >= m_optionHoverTimeLimit)
+			{
+				handleTimerReached();
+				m_selectTimer = 0F;
+			}
 		}
 	}
 
-	private void HandleMovementOptionHover(Vector3 _cursorPosition)
+	private void handleTimerReached()
 	{
-		HandleStandOptionHover (_cursorPosition);
-		HandleWalkOptionHover (_cursorPosition);
-		HandleRunOptionHover (_cursorPosition);
-	}
+		if (m_currentPointedOption.Equals (m_standOption) || m_currentPointedOption.Equals (m_walkOption) || m_currentPointedOption.Equals (m_runOption)) {
+			m_standOption.GetComponent<Button> ().interactable = true;
+			m_walkOption.GetComponent<Button> ().interactable = true;
+			m_runOption.GetComponent<Button> ().interactable = true;
 
-	private void HandleStandOptionHover(Vector3 _cursorPosition)
-	{			
-		Bounds spriteBounds = new Bounds(m_leftUICamera.WorldToScreenPoint(m_standLeftOption.transform.position), m_optionSize);
-
-		if (!m_bodyMovement.IsStanding() && spriteBounds.min.x <= _cursorPosition.x && spriteBounds.min.y <= _cursorPosition.y && spriteBounds.max.x >= _cursorPosition.x && spriteBounds.max.y >= _cursorPosition.y)
+			m_currentPointedOption.GetComponent<Button> ().interactable = false;
+		} 
+		else if (m_currentPointedOption.Equals (m_shPathOption)) 
 		{
-			if (m_previousPointedOption == null || m_previousPointedOption != m_standLeftOption)
-			{
-				m_previousPointedOption = m_standLeftOption;
-				m_selectTimer = 0F;
-				m_standLeftOption.transform.GetChild(0).gameObject.SetActive(true);
-				m_standRightOption.transform.GetChild(0).gameObject.SetActive(true);
-			}
-			else
-				m_selectTimer += Time.deltaTime;
-			
-			if (m_selectTimer >= PlayerMenuHandler.s_optionHoverTimeLimit)
-			{
-				m_bodyMovement.StopMoving ();
-				m_standLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
-				m_standRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
-				m_walkLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				m_walkRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				m_runLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				m_runRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				
-				m_standLeftOption.transform.GetChild(0).gameObject.SetActive(false);
-				m_standRightOption.transform.GetChild(0).gameObject.SetActive(false);
-			}
-			
-			m_resetPreviousPointedOption = false;
-		}
-		else
-			m_resetPreviousPointedOption = true;
-	}
-	
-	private void HandleWalkOptionHover(Vector3 _cursorPosition)
-	{
-		Bounds spriteBounds = new Bounds(m_leftUICamera.WorldToScreenPoint(m_walkLeftOption.transform.position), m_optionSize);
-
-		if(m_resetPreviousPointedOption == true && !m_bodyMovement.IsWalking() && spriteBounds.min.x <= _cursorPosition.x && spriteBounds.min.y <= _cursorPosition.y && spriteBounds.max.x >= _cursorPosition.x && spriteBounds.max.y >= _cursorPosition.y)
+		} 
+		else if (m_currentPointedOption.Equals (m_volumeOption)) 
 		{
-			if (m_previousPointedOption == null || m_previousPointedOption != m_walkLeftOption)
-			{
-				m_previousPointedOption = m_walkLeftOption;
-				m_selectTimer = 0F;
-				m_walkLeftOption.transform.GetChild(0).gameObject.SetActive(true);
-				m_walkRightOption.transform.GetChild(0).gameObject.SetActive(true);
-			}
-			else
-				m_selectTimer += Time.deltaTime;
-			
-			if (m_selectTimer >= PlayerMenuHandler.s_optionHoverTimeLimit)
-			{
-				m_bodyMovement.StartWalking();
-				m_standLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				m_standRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				m_walkLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
-				m_walkRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
-				m_runLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				m_runRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				
-				m_walkLeftOption.transform.GetChild(0).gameObject.SetActive(false);
-				m_walkRightOption.transform.GetChild(0).gameObject.SetActive(false);
-			}
-			
-			m_resetPreviousPointedOption = false;
-		}
-	}
-	
-	private void HandleRunOptionHover(Vector3 _cursorPosition)
-	{
-		Bounds spriteBounds = new Bounds(m_leftUICamera.WorldToScreenPoint(m_runLeftOption.transform.position), m_optionSize);
-
-		if(m_resetPreviousPointedOption == true && !m_bodyMovement.IsRunning() && spriteBounds.min.x <= _cursorPosition.x && spriteBounds.min.y <= _cursorPosition.y && spriteBounds.max.x >= _cursorPosition.x && spriteBounds.max.y >= _cursorPosition.y)
+		} 
+		else if (m_currentPointedOption.Equals (m_scientificModeOption)) 
 		{
-			if (m_previousPointedOption == null || m_previousPointedOption != m_runLeftOption)
-			{
-				m_previousPointedOption = m_runLeftOption;
-				m_selectTimer = 0F;
-				m_runLeftOption.transform.GetChild(0).gameObject.SetActive(true);
-				m_runRightOption.transform.GetChild(0).gameObject.SetActive(true);
-			}	
-			else
-				m_selectTimer += Time.deltaTime;
-			
-			if (m_selectTimer >= PlayerMenuHandler.s_optionHoverTimeLimit)
-			{
-				m_bodyMovement.StartRunning();
-				m_standLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				m_standRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				m_walkLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				m_walkRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				m_runLeftOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
-				m_runRightOption.GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.gray);
-				
-				m_runLeftOption.transform.GetChild(0).gameObject.SetActive(false);
-				m_runRightOption.transform.GetChild(0).gameObject.SetActive(false);
-			}
-			
-			m_resetPreviousPointedOption = false;
-		}
-	}
-
-	private void HandleVolumeHover(Vector3 _cursorPosition)
-	{
-		GameObject volume;
-		if (SimulationController.m_volumeON)
-			volume = m_volumeONLeftOption;
-		else
-			volume = m_volumeOFFLeftOption;
-
-		Bounds spriteBounds = new Bounds(m_leftUICamera.WorldToScreenPoint(volume.transform.position), m_optionSize);
-
-		if(m_resetPreviousPointedOption == true && spriteBounds.min.x <= _cursorPosition.x && spriteBounds.min.y <= _cursorPosition.y && spriteBounds.max.x >= _cursorPosition.x && spriteBounds.max.y >= _cursorPosition.y)
-		{
-			if (m_previousPointedOption == null || m_previousPointedOption != volume)
-			{
-				m_previousPointedOption = volume;
-				m_selectTimer = 0F;
-				if (SimulationController.m_volumeON)
-				{
-					m_volumeONLeftOption.transform.GetChild(0).gameObject.SetActive(true);
-					m_volumeONRightOption.transform.GetChild(0).gameObject.SetActive(true);
-				}
-				else
-				{
-					m_volumeOFFLeftOption.transform.GetChild(0).gameObject.SetActive(true);
-					m_volumeOFFRightOption.transform.GetChild(0).gameObject.SetActive(true);
-				}
-			}	
-			else
-				m_selectTimer += Time.deltaTime;
-			
-			if (m_selectTimer >= PlayerMenuHandler.s_optionHoverTimeLimit)
-			{
-				SimulationController.m_volumeON = !SimulationController.m_volumeON;
-				if (SimulationController.m_volumeON)
-				{
-					m_volumeOFFLeftOption.SetActive(true);
-					m_volumeOFFRightOption.SetActive(true);
-					m_volumeONLeftOption.SetActive(false);
-					m_volumeONRightOption.SetActive(false);
-				}
-				else
-				{
-					m_volumeOFFLeftOption.SetActive(false);
-					m_volumeOFFRightOption.SetActive(false);
-					m_volumeONLeftOption.SetActive(true);
-					m_volumeONRightOption.SetActive(true);
-				}
-				m_volumeOFFLeftOption.transform.GetChild(0).gameObject.SetActive(false);
-				m_volumeOFFRightOption.transform.GetChild(0).gameObject.SetActive(false);
-				m_volumeONLeftOption.transform.GetChild(0).gameObject.SetActive(false);
-				m_volumeONRightOption.transform.GetChild(0).gameObject.SetActive(false);
-			}
-			
-			m_resetPreviousPointedOption = false;
 		}
 	}
 }
