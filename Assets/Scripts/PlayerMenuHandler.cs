@@ -43,18 +43,14 @@ public class PlayerMenuHandler : MonoBehaviour {
 	
 	public void EnteredMenuOption(int _option)
 	{
-		Debug.Log (_option + " sdfsdf");
 		m_menuOptions.TryGetValue ((PlayerMenuOption)_option, out m_currentPointedOption);
-		
 		m_isHovering = true;
 	}
 	
 	public void ExitedMenuOption()
 	{
 		m_currentPointedOption = null;
-		
 		m_isHovering = false;
-		
 		m_selectTimer = 0F;
 	}
 	
