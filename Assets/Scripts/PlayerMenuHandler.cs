@@ -37,7 +37,8 @@ public class PlayerMenuHandler : MonoBehaviour {
 		m_menuOptions.Add(PlayerMenuOption.ShortestPath,m_shPathOption);
 		m_menuOptions.Add(PlayerMenuOption.Volume,m_volumeOnOption);
 		m_menuOptions.Add(PlayerMenuOption.ScientificMode,m_scientificModeOption);
-		
+
+		m_volumeOffOption.SetActive (false);
 		m_standOption.GetComponent<Button> ().interactable = false;
 	}
 	
@@ -45,8 +46,8 @@ public class PlayerMenuHandler : MonoBehaviour {
 	{
 		m_menuOptions.TryGetValue ((PlayerMenuOption)_option, out m_currentPointedOption);
 		m_isHovering = true;
-		Debug.Log( m_currentPointedOption.name);
-		m_currentPointedOption.transform.GetChild (1).gameObject.SetActive (true);
+		if(m_currentPointedOption.GetComponent<Button>().IsInteractable())
+			m_currentPointedOption.transform.GetChild (1).gameObject.SetActive (true);
 	}
 	
 	public void ExitedMenuOption()
@@ -59,13 +60,12 @@ public class PlayerMenuHandler : MonoBehaviour {
 	
 	private void resetTimerGauge()
 	{
-		GameObject gaugePanel = m_currentPointedOption.transform.GetChild (1).gameObject;
+		GameObject gaugePanel = m_currentPointedOption.transform.GetChild(1).gameObject;
 		RectTransform fgRectTransform = gaugePanel.transform.GetChild(1).gameObject.GetComponent<RectTransform>();
-		RectTransform bgRectTransform = gaugePanel.transform.GetChild (0).gameObject.GetComponent<RectTransform>();
-		fgRectTransform.sizeDelta = new Vector2 (0, gaugePanel.transform.parent.gameObject.GetComponent<RectTransform>().rect.height);
+		fgRectTransform.offsetMax = new Vector2 (fgRectTransform.offsetMax.x, 0);
 		gaugePanel.SetActive (false);
 	}
-	
+
 	private void LateUpdate()
 	{
 		if (m_isHovering && m_currentPointedOption.GetComponent<Button>().IsInteractable()) 
@@ -78,6 +78,7 @@ public class PlayerMenuHandler : MonoBehaviour {
 			{
 				handleTimerReached();
 				m_selectTimer = 0F;
+				resetTimerGauge();
 			}
 		}
 	}
@@ -126,12 +127,16 @@ public class PlayerMenuHandler : MonoBehaviour {
 			m_volumeOnOption.SetActive(false);
 			m_volumeOffOption.SetActive(true);
 			m_currentPointedOption = m_volumeOffOption;
+			m_menuOptions.Remove(PlayerMenuOption.Volume);
+			m_menuOptions.Add(PlayerMenuOption.Volume, m_volumeOffOption);
 		} 
 		else if (m_currentPointedOption.Equals (m_volumeOffOption)) 
 		{
-			m_volumeOnOption.SetActive(true);
 			m_volumeOffOption.SetActive(false);
+			m_volumeOnOption.SetActive(true);
 			m_currentPointedOption = m_volumeOnOption;
+			m_menuOptions.Remove(PlayerMenuOption.Volume);
+			m_menuOptions.Add(PlayerMenuOption.Volume, m_volumeOnOption);
 		} 
 		else if (m_currentPointedOption.Equals (m_scientificModeOption)) 
 		{
