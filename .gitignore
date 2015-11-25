@@ -1,7 +1,5 @@
 Temp
-Library/metadata
-Library/*.log
-Library/ShaderCache
 Assets/Scene/DemoScene.unity*
-Library/Crashed*
-Assets/Builds
+Library
+Assets/Build*
+Build*

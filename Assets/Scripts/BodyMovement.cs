@@ -35,7 +35,7 @@ public class BodyMovement : MonoBehaviour {
 	public GameObject m_playerMenu;
 	
 	private GameObject m_mainCamera;
-	
+
 	/**
 	 * Start()
 	 * Method used for initialization.
@@ -44,7 +44,7 @@ public class BodyMovement : MonoBehaviour {
 	 */
 	private void Start () {
 		m_controller = GetComponent<CharacterController> ();
-		m_mainCamera = transform.GetChild (0).GetChild (0).gameObject;
+		m_mainCamera = transform.GetChild (0).GetChild (0).GetChild(0).gameObject;
 		m_minXAngle = m_mainCamera.GetComponent<OrientationChecker> ().m_minXAngle * (-1);
 		
 		/* Make the rigid body not change rotation */
@@ -77,21 +77,22 @@ public class BodyMovement : MonoBehaviour {
 			m_movementDirection = Vector3.zero;
 		
 		/* Align the movement direction by multiplying it with the caracter's rotation quaternion. */
-		m_movementDirection = m_mainCamera.transform.rotation * m_movementDirection;
+	//	m_movementDirection = m_mainCamera.transform.rotation * m_movementDirection;
 		
 		/* If the signed angle is inside the slow zone, the deceleration function is applied to the movement direction. */
+		//TODO
 		/*float angle = m_mainCamera.transform.rotation.eulerAngles.x;
 		Debug.Log (angle + "/" + m_minXAngle+" => "+(m_minXAngle - angle)/m_minXAngle);
 		if (angle <= m_slowZoneAngleLimit) 
 			m_movementDirection *= (m_minXAngle - angle)/m_minXAngle;*/
 		
 		/* Gravity is applied to the movement direction. */
-		m_movementDirection.y -= m_gravity * Time.deltaTime;
+	//	m_movementDirection.y -= m_gravity * Time.deltaTime;
 		
 		/* The body is moved towards the movement direction Vector3. */
 		m_controller.Move (m_movementDirection);
 		
-		m_playerMenu.transform.position = m_controller.transform.position;
+	//	m_playerMenu.transform.position = m_controller.transform.position;
 	}
 	
 	/**

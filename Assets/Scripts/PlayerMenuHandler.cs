@@ -45,21 +45,35 @@ public class PlayerMenuHandler : MonoBehaviour {
 	{
 		m_menuOptions.TryGetValue ((PlayerMenuOption)_option, out m_currentPointedOption);
 		m_isHovering = true;
+		Debug.Log( m_currentPointedOption.name);
+		m_currentPointedOption.transform.GetChild (1).gameObject.SetActive (true);
 	}
 	
 	public void ExitedMenuOption()
 	{
-		m_currentPointedOption = null;
+		resetTimerGauge();
 		m_isHovering = false;
 		m_selectTimer = 0F;
+		m_currentPointedOption = null;
 	}
 	
-	private void Update()
+	private void resetTimerGauge()
+	{
+		GameObject gaugePanel = m_currentPointedOption.transform.GetChild (1).gameObject;
+		RectTransform fgRectTransform = gaugePanel.transform.GetChild(1).gameObject.GetComponent<RectTransform>();
+		RectTransform bgRectTransform = gaugePanel.transform.GetChild (0).gameObject.GetComponent<RectTransform>();
+		fgRectTransform.sizeDelta = new Vector2 (0, gaugePanel.transform.parent.gameObject.GetComponent<RectTransform>().rect.height);
+		gaugePanel.SetActive (false);
+	}
+	
+	private void LateUpdate()
 	{
 		if (m_isHovering && m_currentPointedOption.GetComponent<Button>().IsInteractable()) 
 		{
 			m_selectTimer += Time.deltaTime;
-			
+
+			updateTimerGauge();
+
 			if(m_selectTimer >= m_optionHoverTimeLimit)
 			{
 				handleTimerReached();
@@ -68,6 +82,16 @@ public class PlayerMenuHandler : MonoBehaviour {
 		}
 	}
 	
+	private void updateTimerGauge()
+	{
+		GameObject gaugePanel = m_currentPointedOption.transform.GetChild(1).gameObject;
+		RectTransform fgRectTransform = gaugePanel.transform.GetChild(1).gameObject.GetComponent<RectTransform>();
+		float maxHeight = gaugePanel.transform.parent.gameObject.GetComponent<RectTransform> ().rect.height;
+		float updatedHeight = maxHeight - (m_selectTimer * maxHeight / m_optionHoverTimeLimit);
+		//fgRectTransform.sizeDelta = new Vector2 (0, updatedHeight);
+		fgRectTransform.offsetMax = new Vector2 (fgRectTransform.offsetMax.x, -updatedHeight);
+	}
+
 	private void handleTimerReached()
 	{
 		if (m_currentPointedOption.Equals (m_standOption))
