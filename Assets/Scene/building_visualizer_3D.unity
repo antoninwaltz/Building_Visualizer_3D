@@ -444,6 +444,84 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 132307495}
+--- !u!1 &252098058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 252098060}
+  - 120: {fileID: 252098061}
+  - 114: {fileID: 252098059}
+  m_Layer: 0
+  m_Name: PathDrawer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &252098059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 252098058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24fad10164f06749922208b6242f343, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_checkpointContainer: {fileID: 1534765999}
+--- !u!4 &252098060
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 252098058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1650937602}
+  m_RootOrder: 0
+--- !u!120 &252098061
+LineRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 252098058}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    startWidth: 1
+    endWidth: 1
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4294967295
+  m_UseWorldSpace: 1
 --- !u!1001 &253109248
 Prefab:
   m_ObjectHideFlags: 0
@@ -2021,7 +2099,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1650937602}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!114 &395543884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3066,6 +3144,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 400088, guid: 363aed0d8d1c4f6479a3208861ade3a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 363aed0d8d1c4f6479a3208861ade3a7, type: 3}
   m_IsPrefabParent: 0
@@ -3180,7 +3262,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1650937602}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &708484229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3193,6 +3275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bodyMovement: {fileID: 1982257456}
+  m_pathDrawer: {fileID: 252098059}
   m_standOption: {fileID: 846920839}
   m_walkOption: {fileID: 1909558638}
   m_runOption: {fileID: 1134233457}
@@ -3562,8 +3645,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 500117207}
+  - {fileID: 1534766000}
   m_Father: {fileID: 1650937602}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &937803566 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100064, guid: 363aed0d8d1c4f6479a3208861ade3a7, type: 3}
@@ -4436,6 +4520,34 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300012, guid: 363aed0d8d1c4f6479a3208861ade3a7, type: 3}
+--- !u!1 &1534765999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1534766000}
+  m_Layer: 0
+  m_Name: checkpoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1534766000
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1534765999}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 48.3882065, y: 2.9798584, z: 7.39755678}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1601535297}
+  m_Father: {fileID: 925805287}
+  m_RootOrder: 1
 --- !u!1 &1563591619
 GameObject:
   m_ObjectHideFlags: 0
@@ -4557,6 +4669,33 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1563591619}
+--- !u!1 &1601535296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1601535297}
+  m_Layer: 0
+  m_Name: checkpoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1601535297
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1601535296}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.6399994, y: -1.38, z: 8.90999985}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1534766000}
+  m_RootOrder: 0
 --- !u!1 &1640381426
 GameObject:
   m_ObjectHideFlags: 0
@@ -4663,6 +4802,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 252098060}
   - {fileID: 708484228}
   - {fileID: 1982257455}
   - {fileID: 1950779759}
@@ -5370,7 +5510,7 @@ RectTransform:
   m_Children:
   - {fileID: 1926836958}
   m_Father: {fileID: 1650937602}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -5463,7 +5603,7 @@ Transform:
   - {fileID: 1164205344}
   - {fileID: 554784452}
   m_Father: {fileID: 1650937602}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &1982257456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5479,7 +5619,7 @@ MonoBehaviour:
   m_runSpeed: .150000006
   m_gravity: 9.80000019
   m_zeroMovementAngle: -40
-  m_slowZoneAngleLimit: -30
+  m_slowZoneAngleLimit: -20
   m_cardboardMain: {fileID: 554784451}
 --- !u!23 &1982257457
 MeshRenderer:

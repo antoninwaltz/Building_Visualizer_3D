@@ -8,7 +8,8 @@ public enum PlayerMenuOption {Stand = 0, Walk = 1, Run = 2, ShortestPath = 3, Vo
 public class PlayerMenuHandler : MonoBehaviour {
 	
 	public BodyMovement m_bodyMovement;
-	
+	public PathDrawer m_pathDrawer;
+
 	private Dictionary<PlayerMenuOption, GameObject> m_menuOptions;
 	public GameObject m_standOption;
 	public GameObject m_walkOption;
@@ -89,7 +90,6 @@ public class PlayerMenuHandler : MonoBehaviour {
 		RectTransform fgRectTransform = gaugePanel.transform.GetChild(1).gameObject.GetComponent<RectTransform>();
 		float maxHeight = gaugePanel.transform.parent.gameObject.GetComponent<RectTransform> ().rect.height;
 		float updatedHeight = maxHeight - (m_selectTimer * maxHeight / m_optionHoverTimeLimit);
-		//fgRectTransform.sizeDelta = new Vector2 (0, updatedHeight);
 		fgRectTransform.offsetMax = new Vector2 (fgRectTransform.offsetMax.x, -updatedHeight);
 	}
 
@@ -119,8 +119,9 @@ public class PlayerMenuHandler : MonoBehaviour {
 			
 			m_bodyMovement.StartRunning();
 		}
-		else if (m_currentPointedOption.Equals (m_shPathOption)) 
+		else if (m_currentPointedOption.Equals(m_shPathOption)) 
 		{
+			m_pathDrawer.DrawPath(m_bodyMovement);
 		} 
 		else if (m_currentPointedOption.Equals (m_volumeOnOption)) 
 		{

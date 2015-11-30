@@ -74,10 +74,18 @@ public class BodyMovement : MonoBehaviour {
 		/* If the signed angle is inside the slow zone, the deceleration function is applied to the movement direction. */
 		float angle = m_cardboardMain.transform.rotation.eulerAngles.x;
 		if (angle >= m_slowZoneAngleLimit) 
-			m_movementDirection *= (m_zeroMovementAngle - angle)/m_zeroMovementAngle;
-		Debug.Log (angle);
-		Debug.Log (m_movementDirection.ToString("F5"));
+		{
+			float angleDiff = (m_zeroMovementAngle - angle);
+			if(angleDiff < 0)
+			{
+				m_movementDirection.x = 0;
+				m_movementDirection.z = 0;
+			}
+			else
+				m_movementDirection *= angleDiff/m_zeroMovementAngle;
 
+		}
+		
 		/* Gravity is applied to the movement direction. */
 		m_movementDirection.y -= m_gravity * Time.deltaTime;
 		

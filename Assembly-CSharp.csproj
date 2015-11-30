@@ -76,6 +76,7 @@
      <Compile Include="Assets\Scripts\MouseLook.cs" />
      <Compile Include="Assets\Scripts\MovementController.cs" />
      <Compile Include="Assets\Scripts\OrientationChecker.cs" />
+     <Compile Include="Assets\Scripts\PathDrawer.cs" />
      <Compile Include="Assets\Scripts\PlayerMenuHandler.cs" />
      <Compile Include="Assets\Scripts\SimulationController.cs" />
      <None Include="Assets\Cardboard\Resources\SkyboxMesh.shader" />
