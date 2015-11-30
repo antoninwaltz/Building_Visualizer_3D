@@ -17,8 +17,8 @@ public class BodyMovement : MonoBehaviour {
 	/** Direction the character has to move to each update. */
 	private Vector3 m_movementDirection;
 	
-	/** CharacterController needed to move the character. */
-	private CharacterController m_controller;
+	/** NavMeshAgent needed to move the character. */
+	private NavMeshAgent m_navMeshAgent;
 	
 	/** BodyState indicating the current state of the body. */
 	private BodyState m_bodyState;
@@ -34,7 +34,7 @@ public class BodyMovement : MonoBehaviour {
 	
 	public GameObject m_playerMenu;
 	
-	private GameObject m_mainCamera;
+	public GameObject m_cardboardMain;
 
 	/**
 	 * Start()
@@ -43,14 +43,9 @@ public class BodyMovement : MonoBehaviour {
 	 * No returns.
 	 */
 	private void Start () {
-		m_controller = GetComponent<CharacterController> ();
-		m_mainCamera = transform.GetChild (0).GetChild (0).GetChild(0).gameObject;
-		m_minXAngle = m_mainCamera.GetComponent<OrientationChecker> ().m_minXAngle * (-1);
-		
-		/* Make the rigid body not change rotation */
-		if (GetComponent<Rigidbody>())
-			GetComponent<Rigidbody>().freezeRotation = true;
-		
+		m_navMeshAgent = GetComponent<NavMeshAgent> ();
+		m_minXAngle = m_cardboardMain.GetComponent<OrientationChecker> ().m_minXAngle * (-1);
+
 		m_bodyState = BodyState.Standing;
 		
 		m_slowZoneAngleLimit *= -1;
@@ -77,22 +72,19 @@ public class BodyMovement : MonoBehaviour {
 			m_movementDirection = Vector3.zero;
 		
 		/* Align the movement direction by multiplying it with the caracter's rotation quaternion. */
-	//	m_movementDirection = m_mainCamera.transform.rotation * m_movementDirection;
+		m_movementDirection = m_cardboardMain.transform.rotation * m_movementDirection;
 		
 		/* If the signed angle is inside the slow zone, the deceleration function is applied to the movement direction. */
-		//TODO
-		/*float angle = m_mainCamera.transform.rotation.eulerAngles.x;
+		float angle = m_cardboardMain.transform.rotation.eulerAngles.x;
 		Debug.Log (angle + "/" + m_minXAngle+" => "+(m_minXAngle - angle)/m_minXAngle);
 		if (angle <= m_slowZoneAngleLimit) 
-			m_movementDirection *= (m_minXAngle - angle)/m_minXAngle;*/
+			m_movementDirection *= (m_minXAngle - angle)/m_minXAngle;
 		
 		/* Gravity is applied to the movement direction. */
-	//	m_movementDirection.y -= m_gravity * Time.deltaTime;
+		m_movementDirection.y -= m_gravity * Time.deltaTime;
 		
 		/* The body is moved towards the movement direction Vector3. */
-		m_controller.Move (m_movementDirection);
-		
-	//	m_playerMenu.transform.position = m_controller.transform.position;
+		m_navMeshAgent.Move(m_movementDirection);
 	}
 	
 	/**
