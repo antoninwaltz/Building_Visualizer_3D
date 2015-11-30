@@ -27,12 +27,10 @@ public class BodyMovement : MonoBehaviour {
 	private bool m_isRunning;
 	
 	/** Minimum angle the character can look to along the X-axis. */
-	private float m_minXAngle;
+	public float m_zeroMovementAngle;
 	
 	/** Angle from which the body starts slowing down. */
 	public float m_slowZoneAngleLimit;
-	
-	public GameObject m_playerMenu;
 	
 	public GameObject m_cardboardMain;
 
@@ -44,11 +42,10 @@ public class BodyMovement : MonoBehaviour {
 	 */
 	private void Start () {
 		m_navMeshAgent = GetComponent<NavMeshAgent> ();
-		m_minXAngle = m_cardboardMain.GetComponent<OrientationChecker> ().m_minXAngle * (-1);
-
 		m_bodyState = BodyState.Standing;
 		
 		m_slowZoneAngleLimit *= -1;
+		m_zeroMovementAngle *= -1;
 	}
 	
 	/**
@@ -76,10 +73,11 @@ public class BodyMovement : MonoBehaviour {
 		
 		/* If the signed angle is inside the slow zone, the deceleration function is applied to the movement direction. */
 		float angle = m_cardboardMain.transform.rotation.eulerAngles.x;
-		Debug.Log (angle + "/" + m_minXAngle+" => "+(m_minXAngle - angle)/m_minXAngle);
-		if (angle <= m_slowZoneAngleLimit) 
-			m_movementDirection *= (m_minXAngle - angle)/m_minXAngle;
-		
+		if (angle >= m_slowZoneAngleLimit) 
+			m_movementDirection *= (m_zeroMovementAngle - angle)/m_zeroMovementAngle;
+		Debug.Log (angle);
+		Debug.Log (m_movementDirection.ToString("F5"));
+
 		/* Gravity is applied to the movement direction. */
 		m_movementDirection.y -= m_gravity * Time.deltaTime;
 		
