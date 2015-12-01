@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum PlayerMenuOption {Stand = 0, Walk = 1, Run = 2, ShortestPath = 3, Volume = 4, ScientificMode = 5};
+public enum PlayerMenuOption {Stand = 0, Walk = 1, Run = 2, ShortestPath = 3, Volume = 4, ScientificMode = 5, RotateRight = 6, RotateLeft = 7};
 
 public class PlayerMenuHandler : MonoBehaviour {
 	
@@ -18,18 +18,23 @@ public class PlayerMenuHandler : MonoBehaviour {
 	public GameObject m_volumeOnOption;
 	public GameObject m_volumeOffOption;
 	public GameObject m_scientificModeOption;
+	public GameObject m_rotateRightOption;
+	public GameObject m_rotateLeftOption;
 	
 	private GameObject m_currentPointedOption;
-	
+	private float m_currentHoverTimeLimit;
+
 	private bool m_isHovering;
 	private float m_selectTimer;
 	
 	public float m_optionHoverTimeLimit;
-	
+	private float m_interOptionHoverTimeLimit;
+
 	// Use this for initialization
 	void Start () {
 		m_selectTimer = 0F;
 		m_currentPointedOption = null;
+		m_interOptionHoverTimeLimit = m_optionHoverTimeLimit / 2;
 		
 		m_menuOptions = new Dictionary<PlayerMenuOption, GameObject> ();
 		m_menuOptions.Add(PlayerMenuOption.Stand,m_standOption);
@@ -38,6 +43,8 @@ public class PlayerMenuHandler : MonoBehaviour {
 		m_menuOptions.Add(PlayerMenuOption.ShortestPath,m_shPathOption);
 		m_menuOptions.Add(PlayerMenuOption.Volume,m_volumeOnOption);
 		m_menuOptions.Add(PlayerMenuOption.ScientificMode,m_scientificModeOption);
+		m_menuOptions.Add(PlayerMenuOption.RotateRight, m_rotateRightOption);
+		m_menuOptions.Add(PlayerMenuOption.RotateLeft, m_rotateLeftOption);
 
 		m_volumeOffOption.SetActive (false);
 		m_standOption.GetComponent<Button> ().interactable = false;
@@ -49,22 +56,27 @@ public class PlayerMenuHandler : MonoBehaviour {
 		m_isHovering = true;
 		if(m_currentPointedOption.GetComponent<Button>().IsInteractable())
 			m_currentPointedOption.transform.GetChild (1).gameObject.SetActive (true);
+
+		if (m_currentPointedOption.Equals (m_rotateLeftOption) || m_currentPointedOption.Equals (m_rotateRightOption))
+			m_currentHoverTimeLimit = m_interOptionHoverTimeLimit;
+		else
+			m_currentHoverTimeLimit = m_optionHoverTimeLimit;
 	}
 	
 	public void ExitedMenuOption()
 	{
-		resetTimerGauge();
+		resetTimerGauge(false);
 		m_isHovering = false;
 		m_selectTimer = 0F;
 		m_currentPointedOption = null;
 	}
 	
-	private void resetTimerGauge()
+	private void resetTimerGauge(bool _stillActive)
 	{
 		GameObject gaugePanel = m_currentPointedOption.transform.GetChild(1).gameObject;
 		RectTransform fgRectTransform = gaugePanel.transform.GetChild(1).gameObject.GetComponent<RectTransform>();
 		fgRectTransform.offsetMax = new Vector2 (fgRectTransform.offsetMax.x, 0);
-		gaugePanel.SetActive (false);
+		gaugePanel.SetActive (_stillActive);
 	}
 
 	private void LateUpdate()
@@ -75,11 +87,10 @@ public class PlayerMenuHandler : MonoBehaviour {
 
 			updateTimerGauge();
 
-			if(m_selectTimer >= m_optionHoverTimeLimit)
+			if(m_selectTimer >= m_currentHoverTimeLimit)
 			{
 				handleTimerReached();
 				m_selectTimer = 0F;
-				resetTimerGauge();
 			}
 		}
 	}
@@ -89,7 +100,7 @@ public class PlayerMenuHandler : MonoBehaviour {
 		GameObject gaugePanel = m_currentPointedOption.transform.GetChild(1).gameObject;
 		RectTransform fgRectTransform = gaugePanel.transform.GetChild(1).gameObject.GetComponent<RectTransform>();
 		float maxHeight = gaugePanel.transform.parent.gameObject.GetComponent<RectTransform> ().rect.height;
-		float updatedHeight = maxHeight - (m_selectTimer * maxHeight / m_optionHoverTimeLimit);
+		float updatedHeight = maxHeight - (m_selectTimer * maxHeight / m_currentHoverTimeLimit);
 		fgRectTransform.offsetMax = new Vector2 (fgRectTransform.offsetMax.x, -updatedHeight);
 	}
 
@@ -102,6 +113,7 @@ public class PlayerMenuHandler : MonoBehaviour {
 			m_runOption.GetComponent<Button> ().interactable = true;
 			
 			m_bodyMovement.StopMoving();
+			resetTimerGauge(false);
 		}
 		else if(m_currentPointedOption.Equals (m_walkOption)) 
 		{
@@ -110,6 +122,7 @@ public class PlayerMenuHandler : MonoBehaviour {
 			m_runOption.GetComponent<Button> ().interactable = true;
 			
 			m_bodyMovement.StartWalking();
+			resetTimerGauge(false);
 		}
 		else if(m_currentPointedOption.Equals (m_runOption))
 		{
@@ -118,6 +131,7 @@ public class PlayerMenuHandler : MonoBehaviour {
 			m_runOption.GetComponent<Button> ().interactable = false;
 			
 			m_bodyMovement.StartRunning();
+			resetTimerGauge(false);
 		}
 		else if (m_currentPointedOption.Equals(m_shPathOption)) 
 		{
@@ -130,6 +144,7 @@ public class PlayerMenuHandler : MonoBehaviour {
 			m_currentPointedOption = m_volumeOffOption;
 			m_menuOptions.Remove(PlayerMenuOption.Volume);
 			m_menuOptions.Add(PlayerMenuOption.Volume, m_volumeOffOption);
+			resetTimerGauge(true);
 		} 
 		else if (m_currentPointedOption.Equals (m_volumeOffOption)) 
 		{
@@ -138,9 +153,21 @@ public class PlayerMenuHandler : MonoBehaviour {
 			m_currentPointedOption = m_volumeOnOption;
 			m_menuOptions.Remove(PlayerMenuOption.Volume);
 			m_menuOptions.Add(PlayerMenuOption.Volume, m_volumeOnOption);
+			resetTimerGauge(true);
 		} 
 		else if (m_currentPointedOption.Equals (m_scientificModeOption)) 
 		{
+			resetTimerGauge(true);
+		}
+		else if (m_currentPointedOption.Equals (m_rotateRightOption)) 
+		{
+			m_standOption.transform.parent.parent.RotateAround(m_standOption.transform.parent.position, Vector3.up, -60);
+			resetTimerGauge(true);
+		}
+		else if (m_currentPointedOption.Equals (m_rotateLeftOption)) 
+		{
+			m_standOption.transform.parent.parent.RotateAround(m_standOption.transform.parent.position, Vector3.up, 60);
+			resetTimerGauge(true);
 		}
 	}
 }
