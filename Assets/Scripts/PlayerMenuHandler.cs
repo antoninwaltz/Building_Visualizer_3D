@@ -48,8 +48,21 @@ public class PlayerMenuHandler : MonoBehaviour {
 
 		m_volumeOffOption.SetActive (false);
 		m_standOption.GetComponent<Button> ().interactable = false;
+
+		m_bodyMovement.SetMenuOptionDictionnary (m_menuOptions);
+		foreach (GameObject o in m_menuOptions.Values) 
+		{
+			ChangeAlphaFromButton(o.GetComponent<Button>(), 0);
+		}
 	}
-	
+
+	public static void ChangeAlphaFromButton(Button _button, float _alpha)
+	{
+		Color c = _button.targetGraphic.color;
+		c.a = _alpha;
+		_button.targetGraphic.color = c;
+	}
+
 	public void EnteredMenuOption(int _option)
 	{
 		m_menuOptions.TryGetValue ((PlayerMenuOption)_option, out m_currentPointedOption);

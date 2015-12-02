@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum BodyState {Standing = 0, Walking = 1, Running = 2}
 
@@ -33,6 +35,8 @@ public class BodyMovement : MonoBehaviour {
 	public float m_slowZoneAngleLimit;
 	
 	public GameObject m_cardboardMain;
+
+	private Dictionary<PlayerMenuOption, GameObject> m_menuOptions;
 
 	/**
 	 * Start()
@@ -73,19 +77,16 @@ public class BodyMovement : MonoBehaviour {
 		
 		/* If the signed angle is inside the slow zone, the deceleration function is applied to the movement direction. */
 		float angle = m_cardboardMain.transform.rotation.eulerAngles.x;
-		Debug.Log (angle);
 		if (angle < 180 && angle >= m_slowZoneAngleLimit) 
-		{
+		{	
 			float angleDiff = (m_zeroMovementAngle - angle);
-			if(angleDiff < 0)
-			{
-				m_movementDirection.x = 0;
-				m_movementDirection.z = 0;
-			}
-			else
-				m_movementDirection *= angleDiff/m_zeroMovementAngle;
 
+			SlowDownSpeed(angleDiff);
+
+			ChangeButtonsAlpha(angleDiff);
 		}
+		/*else
+			ChangeButtonsAlpha*/
 		
 		/* Gravity is applied to the movement direction. */
 		m_movementDirection.y -= m_gravity * Time.deltaTime;
@@ -93,7 +94,30 @@ public class BodyMovement : MonoBehaviour {
 		/* The body is moved towards the movement direction Vector3. */
 		m_navMeshAgent.Move(m_movementDirection);
 	}
-	
+
+	private void SlowDownSpeed(float _angleDiff)
+	{
+		if(_angleDiff < 0)
+		{
+			m_movementDirection.x = 0;
+			m_movementDirection.z = 0;
+		}
+		else
+			m_movementDirection *= _angleDiff/(m_zeroMovementAngle-m_slowZoneAngleLimit);
+	}
+
+	private void ChangeButtonsAlpha(float _angleDiff)
+	{
+		float alpha = 0;
+		if(_angleDiff < 0)
+			alpha = 1;
+		else
+			alpha = 1 - _angleDiff/(m_zeroMovementAngle-m_slowZoneAngleLimit);
+
+		foreach (GameObject o in m_menuOptions.Values)
+			PlayerMenuHandler.ChangeAlphaFromButton (o.GetComponent<Button>(), alpha);
+	}
+
 	/**
 	 * StopMoving()
 	 * Method used to set the character's BodyState to BodyState.Standing.
@@ -162,5 +186,10 @@ public class BodyMovement : MonoBehaviour {
 	public bool IsRunning()
 	{
 		return m_bodyState == BodyState.Running;
+	}
+
+	public void SetMenuOptionDictionnary(Dictionary<PlayerMenuOption, GameObject> _menuOptions)
+	{
+		m_menuOptions = _menuOptions;
 	}
 }
