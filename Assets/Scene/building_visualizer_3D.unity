@@ -702,6 +702,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 11400012, guid: b8b03d395f5734e98af91ccf44f9bf47, type: 2}
+      propertyPath: enableSettingsButton
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b8b03d395f5734e98af91ccf44f9bf47, type: 2}
   m_IsPrefabParent: 0
@@ -2305,6 +2309,18 @@ Prefab:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ExitedMenuOption
       objectReference: {fileID: 0}
+    - target: {fileID: 11459782, guid: d88a22a7cf699c5419398a008ae68cc7, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 19a5f38a36f954d4c825a7c15bc7a454, type: 2}
+    - target: {fileID: 11497586, guid: d88a22a7cf699c5419398a008ae68cc7, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 19a5f38a36f954d4c825a7c15bc7a454, type: 2}
+    - target: {fileID: 11494972, guid: d88a22a7cf699c5419398a008ae68cc7, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 19a5f38a36f954d4c825a7c15bc7a454, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d88a22a7cf699c5419398a008ae68cc7, type: 2}
   m_IsPrefabParent: 0
@@ -2371,7 +2387,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 395543882}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -2858,20 +2874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a66611bdf3c313349aa960e731d28e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &554784454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 554784451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64d354089f18bb54c966ee884246ca42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_interbuttonPanel: {fileID: 110348490}
-  m_buttonToInterButtonDistance: 30
-  m_interButtonSwitchPadding: 5
 --- !u!114 &554784455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3507,6 +3509,33 @@ CanvasRenderer:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 0d962e3250b8b604caba9bbefda49c83, type: 3}
   m_PrefabInternal: {fileID: 1284512092}
+--- !u!1 &697846074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 697846075}
+  m_Layer: 0
+  m_Name: checkpoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &697846075
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 697846074}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -48.7000008, y: -1.38, z: 34.3699989}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1534766000}
+  m_RootOrder: 1
 --- !u!1 &708484226
 GameObject:
   m_ObjectHideFlags: 0
@@ -3517,6 +3546,7 @@ GameObject:
   - 4: {fileID: 708484228}
   - 114: {fileID: 708484227}
   - 114: {fileID: 708484229}
+  - 114: {fileID: 708484230}
   m_Layer: 0
   m_Name: PlayerMenuManager
   m_TagString: Untagged
@@ -3570,6 +3600,22 @@ MonoBehaviour:
   m_rotateRightOption: {fileID: 994852365}
   m_rotateLeftOption: {fileID: 1289441757}
   m_optionHoverTimeLimit: 1.5
+--- !u!114 &708484230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 708484226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d354089f18bb54c966ee884246ca42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_interbuttonPanel: {fileID: 110348490}
+  m_mainCamera: {fileID: 374302114}
+  m_cardboardMain: {fileID: 554784451}
+  m_buttonToInterButtonDistance: 30
+  m_interButtonSwitchPadding: 5
 --- !u!1 &767256762
 GameObject:
   m_ObjectHideFlags: 0
@@ -4351,6 +4397,33 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!1 &1184490405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1184490406}
+  m_Layer: 0
+  m_Name: checkpoint3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1184490406
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1184490405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -31.2700005, y: -1.38, z: 34.2599983}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1534766000}
+  m_RootOrder: 2
 --- !u!1 &1196441272 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100096, guid: 363aed0d8d1c4f6479a3208861ade3a7, type: 3}
@@ -4836,6 +4909,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1601535297}
+  - {fileID: 697846075}
+  - {fileID: 1184490406}
   m_Father: {fileID: 925805287}
   m_RootOrder: 1
 --- !u!1 &1563591619
@@ -5075,6 +5150,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1650937602}
+  - 114: {fileID: 1650937603}
   m_Layer: 0
   m_Name: project
   m_TagString: Untagged
@@ -5100,6 +5176,17 @@ Transform:
   - {fileID: 395543883}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1650937603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1650937601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83cd3dab9cd050e4eaa8b8248657770f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1706183031 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100060, guid: 363aed0d8d1c4f6479a3208861ade3a7, type: 3}
@@ -5591,6 +5678,18 @@ Prefab:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 708484229}
+    - target: {fileID: 11497586, guid: d88a22a7cf699c5419398a008ae68cc7, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 19a5f38a36f954d4c825a7c15bc7a454, type: 2}
+    - target: {fileID: 11494972, guid: d88a22a7cf699c5419398a008ae68cc7, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 19a5f38a36f954d4c825a7c15bc7a454, type: 2}
+    - target: {fileID: 11459782, guid: d88a22a7cf699c5419398a008ae68cc7, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 19a5f38a36f954d4c825a7c15bc7a454, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d88a22a7cf699c5419398a008ae68cc7, type: 2}
   m_IsPrefabParent: 0
@@ -6098,7 +6197,7 @@ MonoBehaviour:
   m_gravity: 9.80000019
   m_zeroMovementAngle: -30
   m_slowZoneAngleLimit: -20
-  m_cardboardMain: {fileID: 554784451}
+  m_mainCamera: {fileID: 374302114}
 --- !u!23 &1982257457
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6634,7 +6733,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 19a5f38a36f954d4c825a7c15bc7a454, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:

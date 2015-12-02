@@ -34,7 +34,7 @@ public class BodyMovement : MonoBehaviour {
 	/** Angle from which the body starts slowing down. */
 	public float m_slowZoneAngleLimit;
 	
-	public GameObject m_cardboardMain;
+	public GameObject m_mainCamera;
 
 	private Dictionary<PlayerMenuOption, GameObject> m_menuOptions;
 
@@ -73,20 +73,23 @@ public class BodyMovement : MonoBehaviour {
 			m_movementDirection = Vector3.zero;
 		
 		/* Align the movement direction by multiplying it with the caracter's rotation quaternion. */
-		m_movementDirection = m_cardboardMain.transform.rotation * m_movementDirection;
-		
-		/* If the signed angle is inside the slow zone, the deceleration function is applied to the movement direction. */
-		float angle = m_cardboardMain.transform.rotation.eulerAngles.x;
+		m_movementDirection = m_mainCamera.transform.rotation * m_movementDirection;
+
+		#if UNITY_ANDROID
+		Debug.Log (m_mainCamera.transform.rotation.eulerAngles);
+		#endif
+		/*If the signed angle is inside the slow zone, the deceleration function is applied to the movement direction. */
+		float angle = m_mainCamera.transform.rotation.eulerAngles.x;
 		if (angle < 180 && angle >= m_slowZoneAngleLimit) 
 		{	
 			float angleDiff = (m_zeroMovementAngle - angle);
 
-			SlowDownSpeed(angleDiff);
+			SlowDownSpeed (angleDiff);
 
-			ChangeButtonsAlpha(angleDiff);
-		}
-		/*else
-			ChangeButtonsAlpha*/
+			ChangeButtonsAlpha (angleDiff);
+		} 
+		else
+			ChangeButtonsAlpha(m_zeroMovementAngle-m_slowZoneAngleLimit);
 		
 		/* Gravity is applied to the movement direction. */
 		m_movementDirection.y -= m_gravity * Time.deltaTime;
@@ -115,7 +118,7 @@ public class BodyMovement : MonoBehaviour {
 			alpha = 1 - _angleDiff/(m_zeroMovementAngle-m_slowZoneAngleLimit);
 
 		foreach (GameObject o in m_menuOptions.Values)
-			PlayerMenuHandler.ChangeAlphaFromButton (o.GetComponent<Button>(), alpha);
+			PlayerMenuHandler.ChangeAlphaFromImage(o.GetComponent<Image>(), alpha);
 	}
 
 	/**

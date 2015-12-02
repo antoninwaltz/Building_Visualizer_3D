@@ -51,16 +51,22 @@ public class PlayerMenuHandler : MonoBehaviour {
 
 		m_bodyMovement.SetMenuOptionDictionnary (m_menuOptions);
 		foreach (GameObject o in m_menuOptions.Values) 
-		{
-			ChangeAlphaFromButton(o.GetComponent<Button>(), 0);
-		}
+			ChangeAlphaFromImage(o.GetComponent<Image>(), 0);
 	}
-
+	
 	public static void ChangeAlphaFromButton(Button _button, float _alpha)
 	{
 		Color c = _button.targetGraphic.color;
 		c.a = _alpha;
 		_button.targetGraphic.color = c;
+	}
+
+	
+	public static void ChangeAlphaFromImage(Image _image, float _alpha)
+	{
+		Color c = _image.color;
+		c.a = _alpha;
+		_image.color = c;
 	}
 
 	public void EnteredMenuOption(int _option)
