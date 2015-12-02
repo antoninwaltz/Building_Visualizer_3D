@@ -30,6 +30,8 @@ public class PlayerMenuHandler : MonoBehaviour {
 	public float m_optionHoverTimeLimit;
 	private float m_interOptionHoverTimeLimit;
 
+	public SimulationManager m_simulationManager;
+
 	// Use this for initialization
 	void Start () {
 		m_selectTimer = 0F;
@@ -41,12 +43,12 @@ public class PlayerMenuHandler : MonoBehaviour {
 		m_menuOptions.Add(PlayerMenuOption.Walk,m_walkOption);
 		m_menuOptions.Add(PlayerMenuOption.Run,m_runOption);
 		m_menuOptions.Add(PlayerMenuOption.ShortestPath,m_shPathOption);
-		m_menuOptions.Add(PlayerMenuOption.Volume,m_volumeOnOption);
+		m_menuOptions.Add(PlayerMenuOption.Volume,m_volumeOffOption);
 		m_menuOptions.Add(PlayerMenuOption.ScientificMode,m_scientificModeOption);
 		m_menuOptions.Add(PlayerMenuOption.RotateRight, m_rotateRightOption);
 		m_menuOptions.Add(PlayerMenuOption.RotateLeft, m_rotateLeftOption);
 
-		m_volumeOffOption.SetActive (false);
+		m_volumeOnOption.SetActive(false);
 		m_standOption.GetComponent<Button> ().interactable = false;
 
 		m_bodyMovement.SetMenuOptionDictionnary (m_menuOptions);
@@ -158,6 +160,8 @@ public class PlayerMenuHandler : MonoBehaviour {
 		} 
 		else if (m_currentPointedOption.Equals (m_volumeOnOption)) 
 		{
+			m_simulationManager.m_isSoundOn = true;
+
 			m_volumeOnOption.SetActive(false);
 			m_volumeOffOption.SetActive(true);
 			m_currentPointedOption = m_volumeOffOption;
@@ -167,6 +171,8 @@ public class PlayerMenuHandler : MonoBehaviour {
 		} 
 		else if (m_currentPointedOption.Equals (m_volumeOffOption)) 
 		{
+			m_simulationManager.m_isSoundOn = false;
+
 			m_volumeOffOption.SetActive(false);
 			m_volumeOnOption.SetActive(true);
 			m_currentPointedOption = m_volumeOnOption;

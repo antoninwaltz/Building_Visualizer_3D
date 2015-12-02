@@ -38,6 +38,16 @@ public class BodyMovement : MonoBehaviour {
 
 	private Dictionary<PlayerMenuOption, GameObject> m_menuOptions;
 
+	private float m_distanceFromLastStep;
+
+	public float m_soundDistanceWalkThreshold;
+
+	public float m_soundDistanceRunThreshold;
+
+	private AudioSource m_audioSource;
+
+	public SimulationManager m_simulationManager;
+
 	/**
 	 * Start()
 	 * Method used for initialization.
@@ -46,8 +56,9 @@ public class BodyMovement : MonoBehaviour {
 	 */
 	private void Start () {
 		m_navMeshAgent = GetComponent<NavMeshAgent> ();
+		m_audioSource = GetComponent<AudioSource> ();
 		m_bodyState = BodyState.Standing;
-		
+
 		m_slowZoneAngleLimit *= -1;
 		m_zeroMovementAngle *= -1;
 	}
@@ -75,9 +86,6 @@ public class BodyMovement : MonoBehaviour {
 		/* Align the movement direction by multiplying it with the caracter's rotation quaternion. */
 		m_movementDirection = m_mainCamera.transform.rotation * m_movementDirection;
 
-		#if UNITY_ANDROID
-		Debug.Log (m_mainCamera.transform.rotation.eulerAngles);
-		#endif
 		/*If the signed angle is inside the slow zone, the deceleration function is applied to the movement direction. */
 		float angle = m_mainCamera.transform.rotation.eulerAngles.x;
 		if (angle < 180 && angle >= m_slowZoneAngleLimit) 
@@ -93,9 +101,23 @@ public class BodyMovement : MonoBehaviour {
 		
 		/* Gravity is applied to the movement direction. */
 		m_movementDirection.y -= m_gravity * Time.deltaTime;
-		
+
+		Vector3 previousPosition = transform.position;
+
 		/* The body is moved towards the movement direction Vector3. */
 		m_navMeshAgent.Move(m_movementDirection);
+
+		m_distanceFromLastStep += Vector3.Distance (previousPosition, transform.position);
+		if(m_simulationManager.m_isSoundOn && m_bodyState.Equals(BodyState.Walking) && m_distanceFromLastStep > m_soundDistanceWalkThreshold)
+		{
+			m_audioSource.Play();
+			m_distanceFromLastStep = 0;
+		}
+		else if(m_simulationManager.m_isSoundOn && m_bodyState.Equals(BodyState.Running) && m_distanceFromLastStep > m_soundDistanceRunThreshold)
+		{
+			m_audioSource.Play();
+			m_distanceFromLastStep = 0;
+		}
 	}
 
 	private void SlowDownSpeed(float _angleDiff)
@@ -130,6 +152,7 @@ public class BodyMovement : MonoBehaviour {
 	public void StopMoving()
 	{
 		m_bodyState = BodyState.Standing;
+		m_distanceFromLastStep = 0;
 		Debug.Log ("Now Standing");
 	}
 	
