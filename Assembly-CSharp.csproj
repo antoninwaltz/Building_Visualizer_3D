@@ -80,6 +80,7 @@
      <Compile Include="Assets\Scripts\OrientationChecker.cs" />
      <Compile Include="Assets\Scripts\PathDrawer.cs" />
      <Compile Include="Assets\Scripts\PlayerMenuHandler.cs" />
+     <Compile Include="Assets\Scripts\RaycastManager.cs" />
      <Compile Include="Assets\Scripts\SimulationController.cs" />
      <Compile Include="Assets\Scripts\SimulationManager.cs" />
      <None Include="Assets\Cardboard\Resources\SkyboxMesh.shader" />
