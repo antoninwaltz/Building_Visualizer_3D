@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PathDrawer : MonoBehaviour {
+public class PathDrawingManager : MonoBehaviour {
 
 	public GameObject m_checkpointContainer;
 

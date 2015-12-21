@@ -8,7 +8,7 @@ public enum PlayerMenuOption {Stand = 0, Walk = 1, Run = 2, ShortestPath = 3, Vo
 public class PlayerMenuHandler : MonoBehaviour {
 	
 	public BodyMovement m_bodyMovement;
-	public PathDrawer m_pathDrawer;
+	public PathDrawingManager m_pathDrawer;
 
 	private Dictionary<PlayerMenuOption, GameObject> m_menuOptions;
 	public GameObject m_standOption;

@@ -74,7 +74,7 @@
      <Compile Include="Assets\Cardboard\Scripts\VRDevices\UnityEditorDevice.cs" />
      <Compile Include="Assets\Scripts\manager\InteractionManager.cs" />
      <Compile Include="Assets\Scripts\manager\MenuInterbuttonsUpdater.cs" />
-     <Compile Include="Assets\Scripts\manager\PathDrawer.cs" />
+     <Compile Include="Assets\Scripts\manager\PathDrawingManager.cs" />
      <Compile Include="Assets\Scripts\manager\PlayerMenuHandler.cs" />
      <Compile Include="Assets\Scripts\manager\RaycastManager.cs" />
      <Compile Include="Assets\Scripts\manager\SimulationManager.cs" />

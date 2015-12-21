@@ -20,22 +20,16 @@ public class RaycastManager : MonoBehaviour {
 	void LateUpdate () {
 		RaycastHit hitInfo = new RaycastHit ();
 		Ray ray = new Ray (m_camera.transform.position, m_gazePointer.transform.position - m_camera.transform.position); 
-			//m_camera.ScreenPointToRay(m_gazePointer.transform.position);
 
 		RaycastHit[] raycasts = Physics.RaycastAll (ray, Vector3.Distance (m_camera.transform.position, m_gazePointer.transform.position));
-		foreach (RaycastHit hit in raycasts) 
-		//if (Physics.Raycast(ray, out hitInfo)) 
-		{
+		foreach (RaycastHit hit in raycasts) {
 			if (hit.transform.gameObject.tag == "interactable_object") {
 				GameObject interactableObject = hit.transform.gameObject;
 				float distance = hit.distance;
 
 				Debug.Log (distance);
+				//interactableObject.getComponent<AssociatedAction>().HasToInteract(distance);
 			}
-		}/*
-		else
-		{
-			Debug.Log("No objects");
-		}*/
+		}
 	}
 }
