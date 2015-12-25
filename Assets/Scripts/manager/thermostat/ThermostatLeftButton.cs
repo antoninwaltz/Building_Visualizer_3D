@@ -2,14 +2,14 @@
 using System.Collections;
 
 public class ThermostatLeftButton : ThermostatButton {
-
-	// Use this for initialization
-	void Start () {
+	
+	protected override void Initialize ()
+	{
 		m_type = ThermostatButtonType.LeftButton;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	public override void LaunchFunction ()
+	{
+		
 	}
 }

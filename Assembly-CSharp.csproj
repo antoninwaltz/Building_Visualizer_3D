@@ -80,6 +80,7 @@
      <Compile Include="Assets\Scripts\manager\PlayerMenuHandler.cs" />
      <Compile Include="Assets\Scripts\manager\RaycastManager.cs" />
      <Compile Include="Assets\Scripts\manager\SimulationManager.cs" />
+     <Compile Include="Assets\Scripts\manager\thermostat\FillableGauge.cs" />
      <Compile Include="Assets\Scripts\manager\thermostat\ThermostatButton.cs" />
      <Compile Include="Assets\Scripts\manager\thermostat\ThermostatHandler.cs" />
      <Compile Include="Assets\Scripts\manager\thermostat\ThermostatLeftButton.cs" />

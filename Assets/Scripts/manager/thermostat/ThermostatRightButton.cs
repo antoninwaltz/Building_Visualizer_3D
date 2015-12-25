@@ -3,13 +3,13 @@ using System.Collections;
 
 public class ThermostatRightButton : ThermostatButton {
 	
-	// Use this for initialization
-	void Start () {
+	protected override void Initialize ()
+	{
 		m_type = ThermostatButtonType.RightButton;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	public override void LaunchFunction ()
+	{
+		
 	}
 }
