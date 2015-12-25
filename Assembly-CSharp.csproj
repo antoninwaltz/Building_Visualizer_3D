@@ -72,12 +72,22 @@
      <Compile Include="Assets\Cardboard\Scripts\VRDevices\CardboardAndroidDevice.cs" />
      <Compile Include="Assets\Cardboard\Scripts\VRDevices\CardboardiOSDevice.cs" />
      <Compile Include="Assets\Cardboard\Scripts\VRDevices\UnityEditorDevice.cs" />
+     <Compile Include="Assets\Scripts\InteractableObject.cs" />
+     <Compile Include="Assets\Scripts\animations\AnimatedObject.cs" />
      <Compile Include="Assets\Scripts\manager\InteractionManager.cs" />
      <Compile Include="Assets\Scripts\manager\MenuInterbuttonsUpdater.cs" />
      <Compile Include="Assets\Scripts\manager\PathDrawingManager.cs" />
      <Compile Include="Assets\Scripts\manager\PlayerMenuHandler.cs" />
      <Compile Include="Assets\Scripts\manager\RaycastManager.cs" />
      <Compile Include="Assets\Scripts\manager\SimulationManager.cs" />
+     <Compile Include="Assets\Scripts\manager\thermostat\ThermostatButton.cs" />
+     <Compile Include="Assets\Scripts\manager\thermostat\ThermostatHandler.cs" />
+     <Compile Include="Assets\Scripts\manager\thermostat\ThermostatLeftButton.cs" />
+     <Compile Include="Assets\Scripts\manager\thermostat\ThermostatMinusButton.cs" />
+     <Compile Include="Assets\Scripts\manager\thermostat\ThermostatOffButton.cs" />
+     <Compile Include="Assets\Scripts\manager\thermostat\ThermostatOnButton.cs" />
+     <Compile Include="Assets\Scripts\manager\thermostat\ThermostatPlusButton.cs" />
+     <Compile Include="Assets\Scripts\manager\thermostat\ThermostatRightButton.cs" />
      <Compile Include="Assets\Scripts\movements\BodyMovement.cs" />
      <Compile Include="Assets\Scripts\movements\MouseLook.cs" />
      <Compile Include="Assets\Scripts\movements\OrientationChecker.cs" />
@@ -90,17 +100,11 @@
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Cardboard\Resources\RadialUndistortionEffect.shader" />
      <None Include="Assets\Cardboard\Resources\SolidColor.shader" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>

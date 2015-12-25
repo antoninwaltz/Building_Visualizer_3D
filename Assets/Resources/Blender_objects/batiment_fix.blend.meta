@@ -1,59 +1,62 @@
 fileFormatVersion: 2
-guid: d298d917594599d47a610e32f7294f0e
-timeCreated: 1449680653
+guid: 57b76f2f8a4a8f940ac8ae0168e166d6
+timeCreated: 1450813226
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: button_left
-    100004: button_minus
-    100006: button_off
-    100008: button_on
-    100010: button_plus
-    100012: button_right
-    100014: screen
-    400000: //RootNode
-    400002: button_left
-    400004: button_minus
-    400006: button_off
-    400008: button_on
-    400010: button_plus
-    400012: button_right
-    400014: screen
-    2300000: //RootNode
-    2300002: button_left
-    2300004: button_minus
-    2300006: button_off
-    2300008: button_on
-    2300010: button_plus
-    2300012: button_right
-    2300014: screen
-    3300000: //RootNode
-    3300002: button_left
-    3300004: button_minus
-    3300006: button_off
-    3300008: button_on
-    3300010: button_plus
-    3300012: button_right
-    3300014: screen
-    4300000: Cube
-    4300002: thermostat
-    4300004: button_right
-    4300006: button_plus
-    4300008: button_off
-    4300010: button_minus
-    4300012: button_left
-    4300014: button_on
-    4300016: screen
-    6400000: button_left
-    6400002: button_minus
-    6400004: button_off
-    6400006: button_on
-    6400008: button_plus
-    6400010: button_right
-    6400012: screen
-    6400014: //RootNode
+    100000: _NOTUSE__Etage_1
+    100002: _NOTUSE__RDC
+    100004: _NOTUSE__RDC_001
+    100006: //RootNode
+    100008: Escalier_1_vers_2___sol_2
+    100010: Etage_1
+    100012: Etage_2
+    100014: Plafond_Etage_2
+    100016: Plafond_RDC
+    100018: RDC
+    100020: Sol_RDC
+    400000: _NOTUSE__Etage_1
+    400002: _NOTUSE__RDC
+    400004: _NOTUSE__RDC_001
+    400006: //RootNode
+    400008: Escalier_1_vers_2___sol_2
+    400010: Etage_1
+    400012: Etage_2
+    400014: Plafond_Etage_2
+    400016: Plafond_RDC
+    400018: RDC
+    400020: Sol_RDC
+    2300000: _NOTUSE__Etage_1
+    2300002: _NOTUSE__RDC
+    2300004: _NOTUSE__RDC_001
+    2300006: Escalier_1_vers_2___sol_2
+    2300008: Etage_1
+    2300010: Etage_2
+    2300012: Plafond_Etage_2
+    2300014: Plafond_RDC
+    2300016: RDC
+    2300018: Sol_RDC
+    3300000: _NOTUSE__Etage_1
+    3300002: _NOTUSE__RDC
+    3300004: _NOTUSE__RDC_001
+    3300006: Escalier_1_vers_2___sol_2
+    3300008: Etage_1
+    3300010: Etage_2
+    3300012: Plafond_Etage_2
+    3300014: Plafond_RDC
+    3300016: RDC
+    3300018: Sol_RDC
+    4300000: _NOTUSE__RDC_001
+    4300002: _NOTUSE__Etage_1
+    4300004: RDC
+    4300006: Plafond_RDC
+    4300008: Escalier_1_vers_2___sol_2
+    4300010: Plafond_Etage_2
+    4300012: Sol_RDC
+    4300014: Etage_2
+    4300016: Etage_1
+    4300018: _NOTUSE__RDC
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -81,7 +84,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

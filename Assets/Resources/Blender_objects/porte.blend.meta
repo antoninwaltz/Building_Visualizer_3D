@@ -1,59 +1,30 @@
 fileFormatVersion: 2
-guid: b99a832571bba1747870ce2281c8554b
-timeCreated: 1450718778
+guid: e49c8cc2a081a224cbcd863216fb8aaa
+timeCreated: 1450971176
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Escalier_etage1__soletage2
-    100004: escalier_RDC
-    100006: Etage_1
-    100008: Etage_1_copie
-    100010: Etage_2
-    100012: Plafond_Etage_2
-    100014: RDC
-    100016: RDC_copie
-    100018: Sol_RDC
-    400000: //RootNode
-    400002: Escalier_etage1__soletage2
-    400004: escalier_RDC
-    400006: Etage_1
-    400008: Etage_1_copie
-    400010: Etage_2
-    400012: Plafond_Etage_2
-    400014: RDC
-    400016: RDC_copie
-    400018: Sol_RDC
-    2300000: Escalier_etage1__soletage2
-    2300002: escalier_RDC
-    2300004: Etage_1
-    2300006: Etage_1_copie
-    2300008: Etage_2
-    2300010: Plafond_Etage_2
-    2300012: RDC
-    2300014: RDC_copie
-    2300016: Sol_RDC
-    3300000: Escalier_etage1__soletage2
-    3300002: escalier_RDC
-    3300004: Etage_1
-    3300006: Etage_1_copie
-    3300008: Etage_2
-    3300010: Plafond_Etage_2
-    3300012: RDC
-    3300014: RDC_copie
-    3300016: Sol_RDC
-    4300000: RDC_copie
-    4300002: Etage_1_copie
-    4300004: escalier_RDC
-    4300006: Escalier_etage1__soletage2
-    4300008: Plafond_Etage_2
-    4300010: Sol_RDC
-    4300012: Etage_2
-    4300014: Etage_1
-    4300016: RDC
+    100000: Cube
+    100002: Cylinder_002
+    100004: Plane
+    100006: //RootNode
+    400000: Cube
+    400002: Cylinder_002
+    400004: Plane
+    400006: //RootNode
+    2300000: Cube
+    2300002: Cylinder_002
+    2300004: Plane
+    3300000: Cube
+    3300002: Cylinder_002
+    3300004: Plane
+    4300000: Plane
+    4300002: Cylinder_002
+    4300004: Cube
     7400000: Default Take
     9500000: //RootNode
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -112,7 +83,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 1
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

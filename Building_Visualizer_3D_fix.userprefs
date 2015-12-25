@@ -1,10 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\TX52\Building_Temperature_Optimizer_fix\Assets\Scripts\Controller\SelectionController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\manager\thermostat\ThermostatLeftButton.cs">
     <Files>
-      <File FileName="..\..\..\TX52\Building_Temperature_Optimizer_fix\Building_Temperature_Optimizer_fix.sln" Line="1" Column="1" />
-      <File FileName="..\..\..\TX52\Building_Temperature_Optimizer_fix\Assets\Scripts\Controller\SelectionController.cs" Line="269" Column="4" />
-      <File FileName="..\..\..\TX52\Building_Temperature_Optimizer_fix\Assets\Scripts\Controller\ConfigurationController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\manager\thermostat\ThermostatHandler.cs" Line="9" Column="23" />
+      <File FileName="Assets\Scripts\manager\thermostat\ThermostatLeftButton.cs" Line="22" Column="39" />
+      <File FileName="Assets\Scripts\manager\thermostat\ThermostatRightButton.cs" Line="12" Column="38" />
+      <File FileName="Assets\Scripts\manager\thermostat\ThermostatOffButton.cs" Line="12" Column="36" />
+      <File FileName="Assets\Scripts\manager\thermostat\ThermostatPlusButton.cs" Line="12" Column="37" />
+      <File FileName="Assets\Scripts\manager\thermostat\ThermostatOnButton.cs" Line="11" Column="51" />
+      <File FileName="Assets\Scripts\manager\thermostat\ThermostatMinusButton.cs" Line="12" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

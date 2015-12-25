@@ -1,59 +1,57 @@
 fileFormatVersion: 2
-guid: d298d917594599d47a610e32f7294f0e
-timeCreated: 1449680653
+guid: b35b1a64dafbde14a89dc638183fffaa
+timeCreated: 1450778453
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
-    100002: button_left
-    100004: button_minus
-    100006: button_off
-    100008: button_on
-    100010: button_plus
-    100012: button_right
-    100014: screen
+    100002: Escalier_etage1__soletage2
+    100004: escalier_RDC
+    100006: Etage_1
+    100008: Etage_1_copie
+    100010: Etage_2
+    100012: Plafond_Etage_2
+    100014: RDC
+    100016: RDC_copie
+    100018: Sol_RDC
     400000: //RootNode
-    400002: button_left
-    400004: button_minus
-    400006: button_off
-    400008: button_on
-    400010: button_plus
-    400012: button_right
-    400014: screen
-    2300000: //RootNode
-    2300002: button_left
-    2300004: button_minus
-    2300006: button_off
-    2300008: button_on
-    2300010: button_plus
-    2300012: button_right
-    2300014: screen
-    3300000: //RootNode
-    3300002: button_left
-    3300004: button_minus
-    3300006: button_off
-    3300008: button_on
-    3300010: button_plus
-    3300012: button_right
-    3300014: screen
-    4300000: Cube
-    4300002: thermostat
-    4300004: button_right
-    4300006: button_plus
-    4300008: button_off
-    4300010: button_minus
-    4300012: button_left
-    4300014: button_on
-    4300016: screen
-    6400000: button_left
-    6400002: button_minus
-    6400004: button_off
-    6400006: button_on
-    6400008: button_plus
-    6400010: button_right
-    6400012: screen
-    6400014: //RootNode
+    400002: Escalier_etage1__soletage2
+    400004: escalier_RDC
+    400006: Etage_1
+    400008: Etage_1_copie
+    400010: Etage_2
+    400012: Plafond_Etage_2
+    400014: RDC
+    400016: RDC_copie
+    400018: Sol_RDC
+    2300000: Escalier_etage1__soletage2
+    2300002: escalier_RDC
+    2300004: Etage_1
+    2300006: Etage_1_copie
+    2300008: Etage_2
+    2300010: Plafond_Etage_2
+    2300012: RDC
+    2300014: RDC_copie
+    2300016: Sol_RDC
+    3300000: Escalier_etage1__soletage2
+    3300002: escalier_RDC
+    3300004: Etage_1
+    3300006: Etage_1_copie
+    3300008: Etage_2
+    3300010: Plafond_Etage_2
+    3300012: RDC
+    3300014: RDC_copie
+    3300016: Sol_RDC
+    4300000: RDC_copie
+    4300002: Etage_1_copie
+    4300004: escalier_RDC
+    4300006: Escalier_etage1__soletage2
+    4300008: Plafond_Etage_2
+    4300010: Sol_RDC
+    4300012: Etage_2
+    4300014: Etage_1
+    4300016: RDC
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -81,7 +79,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
