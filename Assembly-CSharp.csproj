@@ -80,7 +80,14 @@
      <Compile Include="Assets\Scripts\manager\PlayerMenuHandler.cs" />
      <Compile Include="Assets\Scripts\manager\RaycastManager.cs" />
      <Compile Include="Assets\Scripts\manager\SimulationManager.cs" />
-     <Compile Include="Assets\Scripts\manager\thermostat\FillableGauge.cs" />
+     <Compile Include="Assets\Scripts\manager\television\TelevisionBackButton.cs" />
+     <Compile Include="Assets\Scripts\manager\television\TelevisionButton.cs" />
+     <Compile Include="Assets\Scripts\manager\television\TelevisionCheckpointIndexUpdater.cs" />
+     <Compile Include="Assets\Scripts\manager\television\TelevisionCheckpointTeleportButton.cs" />
+     <Compile Include="Assets\Scripts\manager\television\TelevisionMenuHandler.cs" />
+     <Compile Include="Assets\Scripts\manager\television\TelevisionNextButton.cs" />
+     <Compile Include="Assets\Scripts\manager\television\TelevisionPreviousButton.cs" />
+     <Compile Include="Assets\Scripts\manager\television\TelevisionTeleportMenuButton.cs" />
      <Compile Include="Assets\Scripts\manager\thermostat\ThermostatButton.cs" />
      <Compile Include="Assets\Scripts\manager\thermostat\ThermostatHandler.cs" />
      <Compile Include="Assets\Scripts\manager\thermostat\ThermostatLeftButton.cs" />
@@ -92,6 +99,7 @@
      <Compile Include="Assets\Scripts\movements\BodyMovement.cs" />
      <Compile Include="Assets\Scripts\movements\MouseLook.cs" />
      <Compile Include="Assets\Scripts\movements\OrientationChecker.cs" />
+     <Compile Include="Assets\Scripts\ui\FillableGauge.cs" />
      <Compile Include="Assets\Scripts\utils\GyroscopeEnable.cs" />
      <None Include="Assets\Cardboard\Resources\SkyboxMesh.shader" />
      <None Include="Assets\Cardboard\Distortion\CardboardDistortion.cginc" />

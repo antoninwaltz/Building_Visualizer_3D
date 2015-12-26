@@ -22,7 +22,7 @@ public class RaycastManager : MonoBehaviour {
 		RaycastHit[] raycasts = Physics.RaycastAll (ray, Vector3.Distance (m_camera.transform.position, m_gazePointer.transform.position), m_maskWithoutUI);
 
 		foreach (RaycastHit hit in raycasts) {
-			Debug.Log(hit.transform.gameObject.name);
+			//Debug.Log(hit.transform.gameObject.name);
 			GameObject interactableObject = hit.transform.gameObject;
 			float distance = 0;
 			if (interactableObject.tag.Equals("interactable_object") || interactableObject.tag.Equals("interactable_object_child"))
@@ -35,7 +35,7 @@ public class RaycastManager : MonoBehaviour {
 				
 				//Debug.Log (distance);
 				//interactableObject.getComponent<AssociatedAction>().HasToInteract(distance);
-				Debug.Log("=> "+interactableObject.name);
+				//Debug.Log("=> "+interactableObject.name);
 			}
 		}
 	}

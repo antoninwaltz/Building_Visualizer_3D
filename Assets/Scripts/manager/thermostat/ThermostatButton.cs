@@ -10,23 +10,17 @@ public abstract class ThermostatButton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		m_thermostatHandler = transform.parent.gameObject.GetComponent<ThermostatHandler> ();
-		m_fillableGauge = transform.GetChild (0).GetComponent<FillableGauge> ();	
+		m_fillableGauge = transform.GetChild (0).GetChild(0).GetComponent<FillableGauge> ();	
 		Initialize ();
 	}
 
 	protected abstract void Initialize ();
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	public void ButtonHovered()
 	{
 		m_thermostatHandler.SetHoveredButton(this);
 	}
-	
-	
+		
 	public void ButtonHoveredEnd()
 	{
 		m_thermostatHandler.HoveredButtonEnd ();
