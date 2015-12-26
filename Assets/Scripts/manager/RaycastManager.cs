@@ -5,30 +5,37 @@ using System.Linq;
 
 public class RaycastManager : MonoBehaviour {
 
-	private List<GameObject> m_interactableObjects;
 	public Camera m_camera;
 	public GameObject m_gazePointer;
+	private int m_maskWithoutUI;
 
 	// Use this for initialization
 	void Start () {
-		m_interactableObjects = GameObject.FindGameObjectsWithTag ("interactable_object").Cast<GameObject>().ToList();
-		foreach (GameObject o in m_interactableObjects)
-			Debug.Log (o.name);
+		m_maskWithoutUI = m_camera.cullingMask;
+		m_maskWithoutUI &= ~(1 << LayerMask.NameToLayer ("UI"));
 	}
-	
-	// Update is called once per frame
+
 	void LateUpdate () {
 		RaycastHit hitInfo = new RaycastHit ();
 		Ray ray = new Ray (m_camera.transform.position, m_gazePointer.transform.position - m_camera.transform.position); 
 
-		RaycastHit[] raycasts = Physics.RaycastAll (ray, Vector3.Distance (m_camera.transform.position, m_gazePointer.transform.position));
-		foreach (RaycastHit hit in raycasts) {
-			if (hit.transform.gameObject.tag == "interactable_object") {
-				GameObject interactableObject = hit.transform.gameObject;
-				float distance = hit.distance;
+		RaycastHit[] raycasts = Physics.RaycastAll (ray, Vector3.Distance (m_camera.transform.position, m_gazePointer.transform.position), m_maskWithoutUI);
 
-				Debug.Log (distance);
+		foreach (RaycastHit hit in raycasts) {
+			Debug.Log(hit.transform.gameObject.name);
+			GameObject interactableObject = hit.transform.gameObject;
+			float distance = 0;
+			if (interactableObject.tag.Equals("interactable_object") || interactableObject.tag.Equals("interactable_object_child"))
+			{
+				if(interactableObject.tag.Equals("interactable_object_child"))
+					while(!interactableObject.tag.Equals("interactable_object"))
+						interactableObject = interactableObject.transform.parent.gameObject;
+
+				distance = Vector3.Distance(m_camera.transform.position, interactableObject.transform.position);
+				
+				//Debug.Log (distance);
 				//interactableObject.getComponent<AssociatedAction>().HasToInteract(distance);
+				Debug.Log("=> "+interactableObject.name);
 			}
 		}
 	}

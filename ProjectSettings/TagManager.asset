@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - interactable_object
+  - interactable_object_child
   layers:
   - Default
   - TransparentFX
@@ -14,11 +15,11 @@ TagManager:
   - UI
   - 
   - 
-  - world
-  - UI_left
-  - UI_right
   - 
-  - 
+  - roof
+  - floor_0
+  - floor_1
+  - floor_2
   - 
   - 
   - 

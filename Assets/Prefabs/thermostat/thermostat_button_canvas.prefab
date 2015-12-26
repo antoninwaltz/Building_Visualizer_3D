@@ -10,7 +10,7 @@ GameObject:
   - 224: {fileID: 22495998}
   - 222: {fileID: 22217520}
   - 114: {fileID: 11492716}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: panel_gauge_fg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 224: {fileID: 22461350}
   - 222: {fileID: 22223560}
   - 114: {fileID: 11491522}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: panel_gauge_bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 224: {fileID: 22446152}
   - 222: {fileID: 22263124}
   - 114: {fileID: 11428684}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: panel_fillable_gauge_timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,8 @@ GameObject:
   - 114: {fileID: 11475690}
   - 114: {fileID: 11465794}
   - 114: {fileID: 11478658}
-  m_Layer: 0
+  - 225: {fileID: 22500420}
+  m_Layer: 2
   m_Name: thermostat_button_canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +278,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195414}
   m_LocalRotation: {x: .500000119, y: .5, z: .5, w: .49999994}
-  m_LocalPosition: {x: 0, y: 0, z: .898000002}
+  m_LocalPosition: {x: 0, y: 0, z: .906000018}
   m_LocalScale: {x: 7.8634177e-05, y: .00071262056, z: .00620985497}
   m_Children:
   - {fileID: 22446152}
@@ -285,7 +286,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -.185000002}
+  m_AnchoredPosition: {x: -.075000003, y: .437999994}
   m_SizeDelta: {x: 555, y: 258}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22495998
@@ -305,6 +306,17 @@ RectTransform:
   m_AnchoredPosition: {x: 9.53674316e-07, y: -129}
   m_SizeDelta: {x: 0, y: -258}
   m_Pivot: {x: .5, y: .5}
+--- !u!225 &22500420
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195414}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -323,6 +335,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

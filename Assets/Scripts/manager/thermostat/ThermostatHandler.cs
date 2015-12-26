@@ -31,6 +31,9 @@ public class ThermostatHandler : MonoBehaviour {
 
 	public void SetHoveredButton(ThermostatButton _button)
 	{
+		if (m_currentHoveredButton != null)
+			HoveredButtonEnd ();
+
 		m_currentHoveredButton = _button;
 		m_isHovering = true;
 		_button.GetFillableGauge ().ActivateTimerGauge ();
@@ -47,7 +50,6 @@ public class ThermostatHandler : MonoBehaviour {
 
 	private void HandleTimerReached()
 	{
-		Debug.Log ("timer reached !");
 		m_hoveredTime = 0.0F;
 		m_currentHoveredButton.GetFillableGauge ().ResetTimerGauge ();
 
