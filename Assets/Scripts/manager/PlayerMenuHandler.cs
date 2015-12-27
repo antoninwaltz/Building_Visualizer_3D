@@ -86,7 +86,8 @@ public class PlayerMenuHandler : MonoBehaviour {
 	
 	public void ExitedMenuOption()
 	{
-		resetTimerGauge(false);
+		if(m_currentPointedOption != null)
+			resetTimerGauge(false);
 		m_isHovering = false;
 		m_selectTimer = 0F;
 		m_currentPointedOption = null;

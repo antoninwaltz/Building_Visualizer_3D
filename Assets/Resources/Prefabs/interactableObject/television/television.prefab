@@ -30,6 +30,7 @@ GameObject:
   - 23: {fileID: 2326866}
   - 64: {fileID: 6437070}
   - 95: {fileID: 9559680}
+  - 114: {fileID: 11415964}
   m_Layer: 0
   m_Name: television
   m_TagString: interactable_object
@@ -303,6 +304,20 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &11415964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff68902b0d165e5409425ad8b6007bab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_type: 4
+  m_interactionDistance: 5
+  m_timerLimit: 1
 --- !u!114 &11448878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -427,6 +442,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: interactable_object
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_interactionDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_timerLimit
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

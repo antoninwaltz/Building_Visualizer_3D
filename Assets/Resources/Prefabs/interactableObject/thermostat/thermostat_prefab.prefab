@@ -52,8 +52,8 @@ GameObject:
   - 23: {fileID: 2302722}
   - 64: {fileID: 6468322}
   - 95: {fileID: 9540728}
-  - 114: {fileID: 11415514}
   - 114: {fileID: 11446040}
+  - 114: {fileID: 11432594}
   m_Layer: 0
   m_Name: thermostat_prefab
   m_TagString: interactable_object
@@ -2157,18 +2157,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11415514
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 104948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edcbd71097d476941b5899e142d61a1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_type: 2
 --- !u!114 &11416336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2662,6 +2650,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Desired \xB0C :"
+--- !u!114 &11432594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba1fc9f2d452c942b52fdb525154f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_type: 2
+  m_interactionDistance: 0
 --- !u!114 &11434336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2721,6 +2722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e907af9f0e99b45a1c6ff76dafaaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dimensionFit: 0
 --- !u!114 &11435912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2732,6 +2734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e907af9f0e99b45a1c6ff76dafaaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dimensionFit: 0
 --- !u!114 &11437256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3466,6 +3469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e907af9f0e99b45a1c6ff76dafaaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dimensionFit: 0
 --- !u!114 &11468324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3564,6 +3568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e907af9f0e99b45a1c6ff76dafaaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dimensionFit: 0
 --- !u!114 &11469812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3866,6 +3871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e907af9f0e99b45a1c6ff76dafaaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dimensionFit: 0
 --- !u!114 &11490768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4077,6 +4083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e907af9f0e99b45a1c6ff76dafaaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dimensionFit: 0
 --- !u!114 &11498676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5947,6 +5954,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: interactable_object
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

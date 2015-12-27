@@ -9,6 +9,7 @@ public class TelevisionCheckpointTeleportButton : TelevisionButton {
 	private GameObject m_followingCamera;
 	private GameObject m_checkpointContainer;
 	private GameObject m_player;
+	private NavMeshAgent m_navMeshAgent;
 
 	protected override void Initialize()
 	{
@@ -18,6 +19,7 @@ public class TelevisionCheckpointTeleportButton : TelevisionButton {
 		m_followingCamera = GameObject.Find ("following_camera");
 		m_checkpointContainer = GameObject.Find ("checkpoints");
 		m_player = GameObject.Find ("player");
+		m_navMeshAgent = m_player.GetComponent<NavMeshAgent> ();
 
 		m_type = TelevisionButtonType.CheckpointTeleport;
 	}
@@ -32,7 +34,14 @@ public class TelevisionCheckpointTeleportButton : TelevisionButton {
 		Debug.Log ("teleport to : "+checkpointIndex + m_checkpointContainer.transform.GetChild(checkpointIndex).transform.position);
 
 		Vector3 checkpointCoords = m_checkpointContainer.transform.GetChild (checkpointIndex).position;
-		m_player.GetComponent<NavMeshAgent>().Warp(new Vector3 (checkpointCoords.x, checkpointCoords.y, checkpointCoords.z));
+		m_navMeshAgent.Stop ();
+		m_navMeshAgent.enabled = false;
+		m_navMeshAgent.Warp(new Vector3 (checkpointCoords.x, checkpointCoords.y, checkpointCoords.z));
+		m_navMeshAgent.enabled = true;
 		m_followingCamera.transform.position = new Vector3 (m_player.transform.position.x, m_followingCamera.transform.position.y, m_player.transform.position.z);
+
+		ButtonHoveredEnd ();
+
+		m_player.transform.GetChild(0).gameObject.SetActive(true);
 	}
 }
