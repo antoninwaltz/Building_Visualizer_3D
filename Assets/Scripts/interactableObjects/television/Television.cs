@@ -8,6 +8,7 @@ public class Television : InteractableObject {
 	private bool m_isWatching;
 	private NavMeshAgent m_navMeshAgent;
 	private BodyMovement m_bodyMovement;
+	private InteractionAgent m_interactionAgent;
 	private Transform m_cameraTransform;
 	private Vector3 m_agentWatchingDestination;
 	private PlayerMenuHandler m_playerMenuHandler;
@@ -15,6 +16,7 @@ public class Television : InteractableObject {
 
 	private float m_timer;
 	public float m_timerLimit;
+	public float m_relativeWatchingDistance;
 
 	protected override void Initialize()
 	{
@@ -24,14 +26,15 @@ public class Television : InteractableObject {
 		m_navMeshAgent = m_player.gameObject.GetComponent<NavMeshAgent> ();
 		m_navMeshAgent.updateRotation = false;
 		m_bodyMovement = m_player.gameObject.GetComponent<BodyMovement> ();
+		m_interactionAgent = m_player.gameObject.GetComponent<InteractionAgent> ();
 		m_cameraTransform = m_bodyMovement.m_mainCamera.transform;
 
 		m_playerMenuHandler = GameObject.Find ("PlayerMenuManager").GetComponent<PlayerMenuHandler>();
 		m_playerMenuCanvas = m_navMeshAgent.transform.GetChild (0).gameObject;
-		m_agentWatchingDestination = new Vector3 (transform.position.x, transform.position.y, (transform.position.z - 1.5F));
+		m_agentWatchingDestination = new Vector3 (transform.position.x, transform.position.y, (transform.position.z - m_relativeWatchingDistance));
 	}
 
-	private void Update()
+	public override void Interaction(GameObject _player)
 	{
 		float yDistance = Mathf.Abs((m_player.transform.position - transform.position).y);
 		if (yDistance < 4) 
@@ -43,22 +46,27 @@ public class Television : InteractableObject {
 	private void HandleSameFloorTelevision()
 	{
 		float distance = Vector2.Distance (new Vector2 (m_player.transform.position.x, m_player.transform.position.z), new Vector2 (transform.position.x, transform.position.z));
-		Debug.Log (distance + " <=? " + m_interactionDistance);
 		if (distance <= m_interactionDistance) 
 		{
-			m_timer += Time.deltaTime;
-			HandleNearbyTelevision ();
+			m_interactionAgent.SetInteractableObject (this);
+
+			HandleInteractableObject ();
+		}
+		else
+		{
+			ResetInteraction ();
 		}
 	}
 
-	private void HandleNearbyTelevision()
+	public override void HandleInteractableObject()
 	{
-		if (!m_isWatching && m_timer > m_timerLimit) 
+		if(!m_isWatching)
 		{
-			HandleStartingToWatchTelevision ();
+			m_timer += Time.deltaTime;
+			if (m_timer > m_timerLimit) 
+				HandleStartingToWatchTelevision ();
 		}
-
-		if (m_isWatching) 
+		else 
 		{
 			HandleWatchingTelevision ();
 		}
@@ -92,13 +100,18 @@ public class Television : InteractableObject {
 
 		if (!m_bodyMovement.IsStanding ()) 
 		{
-			Debug.Log ("moooooooooooooooooooooooooooooooving");
-			m_timer = 0.0F;
-			m_isWatching = false;
-
-			m_playerMenuCanvas.SetActive (true);
-
-			m_navMeshAgent.ResetPath ();
+			ResetInteraction ();
 		}
+	}
+
+	private void ResetInteraction ()
+	{
+		m_timer = 0.0F;
+		m_isWatching = false;
+
+		m_playerMenuCanvas.SetActive (true);
+
+		m_navMeshAgent.ResetPath ();
+		m_interactionAgent.SetInteractableObject (null);
 	}
 }

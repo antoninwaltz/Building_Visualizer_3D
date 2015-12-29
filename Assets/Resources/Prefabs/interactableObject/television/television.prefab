@@ -31,6 +31,7 @@ GameObject:
   - 64: {fileID: 6437070}
   - 95: {fileID: 9559680}
   - 114: {fileID: 11415964}
+  - 208: {fileID: 20877224}
   m_Layer: 0
   m_Name: television
   m_TagString: interactable_object
@@ -315,7 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff68902b0d165e5409425ad8b6007bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_type: 4
   m_interactionDistance: 5
   m_timerLimit: 1
 --- !u!114 &11448878
@@ -361,6 +361,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!208 &20877224
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115294}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.078, y: 1, z: 0.588}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.012, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!222 &22214346
 CanvasRenderer:
   m_ObjectHideFlags: 1

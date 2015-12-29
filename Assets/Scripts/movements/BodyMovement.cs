@@ -48,6 +48,10 @@ public class BodyMovement : MonoBehaviour {
 
 	public SimulationManager m_simulationManager;
 
+	public InteractionManager m_interactionManager;
+
+	private int m_floorIndex;
+
 	/**
 	 * Start()
 	 * Method used for initialization.
@@ -61,6 +65,7 @@ public class BodyMovement : MonoBehaviour {
 
 		m_slowZoneAngleLimit *= -1;
 		m_zeroMovementAngle *= -1;
+		m_floorIndex = 0;
 	}
 	
 	/**
@@ -106,6 +111,9 @@ public class BodyMovement : MonoBehaviour {
 
 		/* The body is moved towards the movement direction Vector3. */
 		m_navMeshAgent.Move(m_movementDirection);
+
+		if (m_movementDirection != Vector3.zero)
+			m_interactionManager.CheckInteractions();
 
 		m_distanceFromLastStep += Vector3.Distance (previousPosition, transform.position);
 		if(m_simulationManager.m_isSoundOn && m_bodyState.Equals(BodyState.Walking) && m_distanceFromLastStep > m_soundDistanceWalkThreshold)
@@ -217,5 +225,15 @@ public class BodyMovement : MonoBehaviour {
 	public void SetMenuOptionDictionnary(Dictionary<PlayerMenuOption, GameObject> _menuOptions)
 	{
 		m_menuOptions = _menuOptions;
+	}
+
+	public void SetFloorIndex(int _index)
+	{
+		m_floorIndex = _index;
+	}
+
+	public int GetFloorIndex()
+	{
+		return m_floorIndex;
 	}
 }

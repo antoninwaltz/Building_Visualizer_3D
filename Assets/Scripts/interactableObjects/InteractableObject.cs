@@ -17,4 +17,8 @@ public abstract class InteractableObject : MonoBehaviour {
 	}
 
 	protected abstract void Initialize ();
+
+	public abstract void Interaction(GameObject _player);
+
+	public abstract void HandleInteractableObject();
 }

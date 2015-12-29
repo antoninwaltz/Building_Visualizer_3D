@@ -6,6 +6,7 @@ TagManager:
   tags:
   - interactable_object
   - interactable_object_child
+  - unvolontary_interactable_object
   layers:
   - Default
   - TransparentFX

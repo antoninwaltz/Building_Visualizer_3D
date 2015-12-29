@@ -13,9 +13,9 @@ public class Door : InteractableObject{
 		m_animator = GetComponent<Animator>();
     }
 
-    private void Update()
+	public override void Interaction(GameObject _player)
     {
-		float distance = Vector3.Distance(m_player.transform.position, transform.position);
+		float distance = Vector3.Distance(_player.transform.position, transform.position);
 
 		if (distance < m_interactionDistance && !m_doorOpen)
         {
@@ -36,4 +36,8 @@ public class Door : InteractableObject{
     {
 		m_animator.SetTrigger(direction);
     }
+
+	public override void HandleInteractableObject()
+	{
+	}
 }
