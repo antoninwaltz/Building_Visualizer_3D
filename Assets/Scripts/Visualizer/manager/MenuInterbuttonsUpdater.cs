@@ -4,7 +4,7 @@ using System.Collections;
 public class MenuInterbuttonsUpdater : MonoBehaviour {
 
 	public GameObject m_interbuttonPanel;
-	public GameObject m_mainCamera;
+	private GameObject m_cardboardHead;
 	public GameObject m_cardboardMain;
 
 	private Quaternion m_referenceQuaternion;
@@ -14,6 +14,7 @@ public class MenuInterbuttonsUpdater : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		m_cardboardHead = m_cardboardMain.transform.GetChild (0).gameObject;
 		m_referenceQuaternion = Quaternion.Euler(Vector3.zero);
 		m_interButtonHalfInterval = m_buttonToInterButtonDistance + m_interButtonSwitchPadding;
 	}
@@ -21,10 +22,10 @@ public class MenuInterbuttonsUpdater : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float angleFromReference = 0;
-		if(m_mainCamera.transform.rotation.eulerAngles.y > 360-m_interButtonHalfInterval)
-			angleFromReference = 360 - m_mainCamera.transform.rotation.eulerAngles.y;
+		if(m_cardboardHead.transform.rotation.eulerAngles.y > 360-m_interButtonHalfInterval)
+			angleFromReference = 360 - m_cardboardHead.transform.rotation.eulerAngles.y;
 		else
-			angleFromReference = m_referenceQuaternion.eulerAngles.y - m_mainCamera.transform.rotation.eulerAngles.y;
+			angleFromReference = m_referenceQuaternion.eulerAngles.y - m_cardboardHead.transform.rotation.eulerAngles.y;
 
 		if (angleFromReference > m_interButtonHalfInterval || angleFromReference < -m_interButtonHalfInterval ) 
 		{

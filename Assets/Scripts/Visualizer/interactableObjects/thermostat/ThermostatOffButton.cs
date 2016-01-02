@@ -10,6 +10,6 @@ public class ThermostatOffButton : ThermostatButton {
 
 	public override void LaunchFunction ()
 	{
-
+		m_thermostatHandler.GetThermostat ().GetSelectedActionner ().isTurnedOn = false;
 	}
 }

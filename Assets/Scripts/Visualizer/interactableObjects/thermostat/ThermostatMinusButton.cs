@@ -10,6 +10,6 @@ public class ThermostatMinusButton : ThermostatButton {
 	
 	public override void LaunchFunction ()
 	{
-		
+		--m_thermostatHandler.GetThermostat ().GetRoomContainer ().ObjectiveTemperature;
 	}
 }

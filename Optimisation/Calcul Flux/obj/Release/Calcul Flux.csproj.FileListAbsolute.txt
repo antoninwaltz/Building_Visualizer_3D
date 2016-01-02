@@ -1,0 +1,6 @@
+E:\UTBM\GMC\GMC05\TX\Programme\test\Calcul Flux\Calcul Flux\bin\Release\Calcul Flux.exe.config
+E:\UTBM\GMC\GMC05\TX\Programme\test\Calcul Flux\Calcul Flux\bin\Release\Calcul Flux.exe
+E:\UTBM\GMC\GMC05\TX\Programme\test\Calcul Flux\Calcul Flux\bin\Release\Calcul Flux.pdb
+E:\UTBM\GMC\GMC05\TX\Programme\test\Calcul Flux\Calcul Flux\obj\Release\Calcul Flux.exe
+E:\UTBM\GMC\GMC05\TX\Programme\test\Calcul Flux\Calcul Flux\obj\Release\Calcul Flux.pdb
+E:\UTBM\GMC\GMC05\TX\Programme\test\Calcul Flux\Calcul Flux\obj\Release\Calcul Flux.csprojResolveAssemblyReference.cache

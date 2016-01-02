@@ -11,6 +11,7 @@ public class RoomContainer : MonoBehaviour {
 	public float Volume { get; private set;}
 
 	public float ObjectiveTemperature { get; set;}
+	public float CurrentTemperature { get; set;}
 	public float MinDeliveredEnergy {get; set;}
 	public float MaxDeliveredEnergy { get; set;}
 	public float CurrentDeliveredEnergy { get; set;}
@@ -24,6 +25,7 @@ public class RoomContainer : MonoBehaviour {
 		m_rooms = new List<Room> ();
 		Volume = 0;
 		ObjectiveTemperature = float.NaN;
+		CurrentTemperature = float.NaN;
 		MinDeliveredEnergy = float.NaN;
 		MaxDeliveredEnergy = float.NaN;
 		CurrentDeliveredEnergy = float.NaN;

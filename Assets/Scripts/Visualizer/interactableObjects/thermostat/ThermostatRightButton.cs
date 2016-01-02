@@ -10,6 +10,6 @@ public class ThermostatRightButton : ThermostatButton {
 	
 	public override void LaunchFunction ()
 	{
-		
+		m_thermostatHandler.GetThermostat ().ChooseNextActionner ();
 	}
 }

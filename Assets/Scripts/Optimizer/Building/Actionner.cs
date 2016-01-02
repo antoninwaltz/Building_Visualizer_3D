@@ -24,8 +24,12 @@ public class Actionner : MonoBehaviour {
 
 	public float MinDeliveredEnergy{ get; set;}
 	public float MaxDeliveredEnergy{ get; set;}
+	public float CurrentDeliveredEnergy { get; set;}
+	public float CurrentTemperature { get; set;}
 
 	public bool Prepared { get; set;}
+
+	public bool isTurnedOn {get;set;}
 
 	public ActionnerProperties m_properties;
 
@@ -33,7 +37,10 @@ public class Actionner : MonoBehaviour {
 	{
 		MinDeliveredEnergy = float.NaN;
 		MaxDeliveredEnergy = float.NaN;
+		CurrentDeliveredEnergy = float.NaN;
+		CurrentTemperature = float.NaN;
 		Prepared = false;
+		isTurnedOn = false;
 	}	
 	
 	private static ActionnerPropertiesAttr GetAttr(ActionnerProperties _acProps)
@@ -50,6 +57,9 @@ public class Actionner : MonoBehaviour {
 	{
 		MinDeliveredEnergy = float.NaN;
 		MaxDeliveredEnergy = float.NaN;
+		CurrentDeliveredEnergy = float.NaN;
+		CurrentTemperature = float.NaN;
+		isTurnedOn = false;
 
 		Prepared = false;
 	}

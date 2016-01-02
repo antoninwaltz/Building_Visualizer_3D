@@ -64,7 +64,7 @@ public class SelectionController : MonoBehaviour {
 
 	private void AddButtonToActionnerList(int _index)
 	{
-		GameObject bo = Instantiate(Resources.Load("Prefabs/actionnerListButton")) as GameObject;
+		GameObject bo = Instantiate(Resources.Load("Optimizer/Prefabs/UI/actionnerListButton")) as GameObject;
 		Vector3 contentPosition = m_actionnerListContentPanel.transform.position;
 		Vector3 pos = new Vector3 (contentPosition.x, m_actionnerListContentPanel.transform.parent.position.y - bo.GetComponent<RectTransform>().rect.height - _index*bo.GetComponent<RectTransform>().rect.height, contentPosition.z);
 		bo.transform.position = pos;

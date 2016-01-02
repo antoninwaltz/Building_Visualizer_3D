@@ -34,7 +34,7 @@ public class BodyMovement : MonoBehaviour {
 	/** Angle from which the body starts slowing down. */
 	public float m_slowZoneAngleLimit;
 	
-	public GameObject m_mainCamera;
+	public GameObject m_cardboardHead;
 
 	private Dictionary<PlayerMenuOption, GameObject> m_menuOptions;
 
@@ -89,10 +89,11 @@ public class BodyMovement : MonoBehaviour {
 			m_movementDirection = Vector3.zero;
 		
 		/* Align the movement direction by multiplying it with the caracter's rotation quaternion. */
-		m_movementDirection = m_mainCamera.transform.rotation * m_movementDirection;
+		m_movementDirection = m_cardboardHead.transform.rotation * m_movementDirection;
 
 		/*If the signed angle is inside the slow zone, the deceleration function is applied to the movement direction. */
-		float angle = m_mainCamera.transform.rotation.eulerAngles.x;
+		float angle = m_cardboardHead.transform.rotation.eulerAngles.x;
+		Debug.Log(angle);
 		if (angle < 180 && angle >= m_slowZoneAngleLimit) 
 		{	
 			float angleDiff = (m_zeroMovementAngle - angle);

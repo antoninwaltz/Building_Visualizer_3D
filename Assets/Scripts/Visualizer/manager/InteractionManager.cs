@@ -24,7 +24,7 @@ public class InteractionManager : MonoBehaviour {
 			int i = 0;
 			while (!parentTransform.parent.GetChild (i).Equals (parentTransform)) 
 			{
-				if(parentTransform.parent.GetChild(i).name.StartsWith("floor"))
+				if(parentTransform.parent.GetChild(i).tag.Equals("floor"))
 					++index;
 				++i;
 			}
@@ -45,7 +45,7 @@ public class InteractionManager : MonoBehaviour {
 			int i = 0;
 			while (!parentTransform.parent.GetChild (i).Equals (parentTransform)) 
 			{
-				if(parentTransform.parent.GetChild(i).name.StartsWith("floor"))
+				if(parentTransform.parent.GetChild(i).tag.Equals("floor"))
 					++index;
 				++i;
 			}
@@ -76,7 +76,7 @@ public class InteractionManager : MonoBehaviour {
 
 	private bool CameraCanObserveObject(GameObject _o)
 	{
-		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(m_player.m_mainCamera.GetComponent<Camera>());
+		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(m_player.m_cardboardHead.transform.GetChild(0).GetComponent<Camera>());
 		return GeometryUtility.TestPlanesAABB (planes, _o.GetComponent<MeshRenderer> ().bounds);
 	}
 }

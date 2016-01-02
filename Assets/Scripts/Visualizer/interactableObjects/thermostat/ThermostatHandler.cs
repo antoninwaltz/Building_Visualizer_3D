@@ -10,10 +10,13 @@ public class ThermostatHandler : MonoBehaviour {
 	private float m_hoveredTime;
 	private bool m_isHovering;
 
+	private Thermostat m_thermostat;
+
 	// Use this for initialization
 	void Start () {
 		m_isHovering = false;
 		m_hoveredTime = 0.0F;
+		m_thermostat = GetComponent<Thermostat> ();
 	}
 	
 	// Update is called once per frame
@@ -54,5 +57,10 @@ public class ThermostatHandler : MonoBehaviour {
 		m_currentHoveredButton.GetFillableGauge ().ResetTimerGauge ();
 
 		m_currentHoveredButton.LaunchFunction();
+	}
+
+	public Thermostat GetThermostat()
+	{
+		return m_thermostat;
 	}
 }
