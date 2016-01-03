@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class RoomContainer : MonoBehaviour {
 
-	private List<Room> m_rooms;
+	private HashSet<Room> m_rooms;
 
 	public int number { get; set;}
 
@@ -19,10 +19,14 @@ public class RoomContainer : MonoBehaviour {
 	public bool Prepared { get; set;}
 
 	private bool m_containsCommandableActionners;
+	private HashSet<Actionner> m_actionners;
+	private HashSet<InteractableObject> m_interactableObjects;
+
+	private HashSet<RoomContainer> m_adjacentRoomContainers;
 
 	// Use this for initialization
 	public void Initialize() {
-		m_rooms = new List<Room> ();
+		m_rooms = new HashSet<Room> ();
 		Volume = 0;
 		ObjectiveTemperature = float.NaN;
 		CurrentTemperature = float.NaN;
@@ -32,15 +36,26 @@ public class RoomContainer : MonoBehaviour {
 		Prepared = false;
 		
 		m_containsCommandableActionners = false;
+		m_adjacentRoomContainers = new HashSet<RoomContainer> ();
+		m_actionners = new HashSet<Actionner> ();
+		m_interactableObjects = new HashSet<InteractableObject> ();
 
 		for (int i = 0; i < transform.childCount; ++i)
 		{
-			m_rooms.Add(transform.GetChild(i).gameObject.GetComponent<Room> ());
-			m_rooms.ToArray()[i].Initialize();
+			Room r = transform.GetChild (i).gameObject.GetComponent<Room> ();
+			m_rooms.Add(r);
+			r.Initialize();
+	
+			foreach (Actionner a in r.GetCommandableActionnerHashSet())
+				if (!m_actionners.Contains (a))
+					m_actionners.Add (a);
+			foreach (InteractableObject obj in r.GetInteractableObjects())
+				if (!m_interactableObjects.Contains (obj))
+					m_interactableObjects.Add (obj);
 
-			AddVolume(m_rooms.ToArray()[i]);
+			AddVolume(r);
 			
-			m_containsCommandableActionners |= (m_rooms.ToArray()[i].GetCommandableActionnerList().ToArray().Length > 0);
+			m_containsCommandableActionners |= (r.GetCommandableActionnerList().ToArray().Length > 0);
 		}
 	}
 
@@ -49,9 +64,15 @@ public class RoomContainer : MonoBehaviour {
 		return m_containsCommandableActionners;
 	}
 
-	public List<Room> GetRooms()
+	public HashSet<Room> GetRooms()
 	{
 		return m_rooms;
+	}
+
+	public List<Room> GetRoomsAsList()
+	{
+		List<Room> roomList = new List<Room> (m_rooms);
+		return roomList;
 	}
 
 	private void AddVolume(Room _room)
@@ -59,12 +80,35 @@ public class RoomContainer : MonoBehaviour {
 		Volume += _room.Volume;
 	}
 
+	public void InitializeAdjacentRoomContainers()
+	{
+		foreach (Room r in m_rooms)
+			foreach (RoomContainer rc in r.GetAdjacentRoomContainers())
+				if (!m_adjacentRoomContainers.Contains (rc))
+					m_adjacentRoomContainers.Add (rc);
+	}
+
+	public HashSet<RoomContainer> GetAdjacentRoomContainers()
+	{
+		return m_adjacentRoomContainers;
+	}
+
+	public HashSet<Actionner> GetActionners()
+	{
+		return m_actionners;
+	}
+
+	public HashSet<InteractableObject> GetInteractableObjects()
+	{
+		return m_interactableObjects;
+	}
+
 	public override string ToString ()
 	{
 		string display = "";
 
 		display += "\nRoom container : " + name;
-		display += "\n Composed of "+m_rooms.ToArray().Length+" room spaces.";
+		display += "\n Composed of "+m_rooms.Count+" room spaces.";
 		foreach (Room r in m_rooms)
 			display += r.ToString ();
 		display += "\nEndRoomContainer";

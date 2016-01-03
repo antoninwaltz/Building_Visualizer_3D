@@ -4,14 +4,18 @@ using System.Collections;
 public class Checkpoint : MonoBehaviour {
 
 	public RoomContainer m_roomContainer;
+	public int FloorIndex {get; private set;}
 
-	// Use this for initialization
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		Transform parentTransform = m_roomContainer.transform.parent.parent;
+		int index = 0;
+		int i = 0;
+		while (!parentTransform.parent.GetChild (i).Equals (parentTransform)) 
+		{
+			if(parentTransform.parent.GetChild(i).tag.Equals("floor"))
+				++index;
+			++i;
+		}
+		FloorIndex = index;
 	}
 }

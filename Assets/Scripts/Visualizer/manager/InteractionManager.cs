@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class InteractionManager : MonoBehaviour {
 
 	private BodyMovement m_player;
+	private BuildingPositionUpdater m_floorUpdater;
 	private InteractionAgent m_interactionAgent;
 	private Dictionary<int, HashSet<InteractableObject>> m_unvolontaryInteractableObjects;
 	private Dictionary<int, HashSet<InteractableObject>> m_volontaryInteractableObjects;
@@ -12,6 +13,7 @@ public class InteractionManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		m_player = GameObject.Find ("player").GetComponent<BodyMovement>();
+		m_floorUpdater = m_player.GetComponent<BuildingPositionUpdater> ();
 		m_interactionAgent =  m_player.GetComponent<InteractionAgent> ();
 		m_unvolontaryInteractableObjects = new Dictionary<int, HashSet<InteractableObject>> ();
 		m_volontaryInteractableObjects = new Dictionary<int, HashSet<InteractableObject>> ();
@@ -61,17 +63,32 @@ public class InteractionManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void CheckInteractions() {
-		int floorIndex = m_player.GetFloorIndex ();
-		HashSet<InteractableObject> hashset;
-		m_unvolontaryInteractableObjects.TryGetValue (floorIndex, out hashset);
-		foreach(InteractableObject o in hashset)
-			o.Interaction(m_player.gameObject);
-
-		if(m_interactionAgent.GetInteractableObject() == null)
-			m_volontaryInteractableObjects.TryGetValue (floorIndex, out hashset);
-			foreach(InteractableObject o in hashset)
-				if(CameraCanObserveObject(o.gameObject))
-					o.Interaction(m_player.gameObject);
+		if (m_floorUpdater.RoomContainer == null) 
+		{
+			HashSet<InteractableObject> hashset;
+			m_unvolontaryInteractableObjects.TryGetValue (0, out hashset);
+			foreach (InteractableObject o in hashset)
+				o.Interaction (m_player.gameObject);
+			
+		}
+		else 
+		{
+			if (m_interactionAgent.GetInteractableObject () == null) 
+			{
+				HashSet<InteractableObject> hashset;
+				m_unvolontaryInteractableObjects.TryGetValue (m_floorUpdater.FloorIndex, out hashset);
+				foreach (InteractableObject o in hashset)
+					o.Interaction (m_player.gameObject);
+			
+				foreach (InteractableObject o in m_floorUpdater.RoomContainer.GetInteractableObjects())
+					if (CameraCanObserveObject (o.gameObject))
+						o.Interaction (m_player.gameObject);	
+			} 
+			else 
+			{
+				m_interactionAgent.GetInteractableObject().HandleInteractableObject();
+			}
+		}
 	}
 
 	private bool CameraCanObserveObject(GameObject _o)

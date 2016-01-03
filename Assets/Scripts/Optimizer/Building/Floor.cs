@@ -32,6 +32,16 @@ public class Floor : MonoBehaviour {
 		}
 	}
 
+	public void InitializeAdjacentRoomContainers ()
+	{
+		GameObject roomContainersContainer = transform.GetChild (0).gameObject;
+		for(int i = 0; i < roomContainersContainer.transform.childCount; ++i)
+		{
+			RoomContainer rc = roomContainersContainer.transform.GetChild(i).GetComponent<RoomContainer>();
+			rc.InitializeAdjacentRoomContainers();
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 	}

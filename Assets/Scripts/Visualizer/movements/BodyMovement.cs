@@ -50,8 +50,6 @@ public class BodyMovement : MonoBehaviour {
 
 	public InteractionManager m_interactionManager;
 
-	private int m_floorIndex;
-
 	/**
 	 * Start()
 	 * Method used for initialization.
@@ -65,7 +63,6 @@ public class BodyMovement : MonoBehaviour {
 
 		m_slowZoneAngleLimit *= -1;
 		m_zeroMovementAngle *= -1;
-		m_floorIndex = 0;
 	}
 	
 	/**
@@ -93,7 +90,6 @@ public class BodyMovement : MonoBehaviour {
 
 		/*If the signed angle is inside the slow zone, the deceleration function is applied to the movement direction. */
 		float angle = m_cardboardHead.transform.rotation.eulerAngles.x;
-		Debug.Log(angle);
 		if (angle < 180 && angle >= m_slowZoneAngleLimit) 
 		{	
 			float angleDiff = (m_zeroMovementAngle - angle);
@@ -226,15 +222,5 @@ public class BodyMovement : MonoBehaviour {
 	public void SetMenuOptionDictionnary(Dictionary<PlayerMenuOption, GameObject> _menuOptions)
 	{
 		m_menuOptions = _menuOptions;
-	}
-
-	public void SetFloorIndex(int _index)
-	{
-		m_floorIndex = _index;
-	}
-
-	public int GetFloorIndex()
-	{
-		return m_floorIndex;
 	}
 }

@@ -138,9 +138,9 @@ public class SelectionController : MonoBehaviour {
 		if (rc.ContainsCommandableActionners ()) 
 		{
 			int index = 0;
-			for (int i = 0; i < rc.GetRooms().ToArray().Length; ++i) 
+			for (int i = 0; i < rc.GetRoomsAsList().ToArray().Length; ++i) 
 			{
-				Room r = rc.GetRooms ().ToArray () [i];
+				Room r = rc.GetRoomsAsList().ToArray () [i];
 				for (int j = 0; j < r.GetCommandableActionnerList().ToArray().Length; ++j) 
 				{
 					Actionner actionner = r.GetCommandableActionnerList ().ToArray () [j].GetComponent<Actionner> ();

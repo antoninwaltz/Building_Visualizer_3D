@@ -11,9 +11,11 @@ public class Room : MonoBehaviour {
 	public float Surface { get; private set;}
 	public float Volume { get; private set;}
 
-	private List<Wall> m_walls;
+	private HashSet<Wall> m_walls;
+	private HashSet<RoomContainer> m_adjacentRoomContainers;
 
-	private List<Actionner> m_commandableActionners;
+	private HashSet<Actionner> m_commandableActionners;
+	private HashSet<InteractableObject> m_interactabeObjects;
 
 	public void Initialize()
 	{
@@ -27,26 +29,58 @@ public class Room : MonoBehaviour {
 		Surface = Width * Height;
 		Volume = Surface * Depth;
 
-		m_walls = new List<Wall> ();
-		m_commandableActionners = new List<Actionner> ();
-		for (int i = 0; i < transform.childCount; ++i)
+		m_walls = new HashSet<Wall> ();
+		m_adjacentRoomContainers = new HashSet<RoomContainer> ();
+		m_commandableActionners = new HashSet<Actionner> ();
+		m_interactabeObjects = new HashSet<InteractableObject> ();
+		for (int i = 0; i < transform.childCount; ++i) 
+		{
 			if (transform.GetChild (i).tag.Equals ("commandableObject"))
-				m_commandableActionners.Add (transform.GetChild(i).gameObject.GetComponent<Actionner>());
+				m_commandableActionners.Add (transform.GetChild (i).gameObject.GetComponent<Actionner> ());
+			if (transform.GetChild (i).tag.Equals ("interactable_object"))
+				m_interactabeObjects.Add (transform.GetChild (i).gameObject.GetComponent<InteractableObject> ());
+		}
 	}
 
-	public List<Wall> GetWalls()
+	public HashSet<Wall> GetWalls()
 	{
 		return m_walls;
+	}
+
+	public List<Wall> GetWallsAsList()
+	{
+		return new List<Wall>(m_walls);
 	}
 
 	public void AddWall(Wall _wall)
 	{
 		m_walls.Add (_wall);
+
+		if (!m_adjacentRoomContainers.Contains (_wall.GetRoomContainer1 ()))
+			m_adjacentRoomContainers.Add (_wall.GetRoomContainer1 ());
+
+		if (!m_adjacentRoomContainers.Contains (_wall.GetRoomContainer2 ()))
+			m_adjacentRoomContainers.Add (_wall.GetRoomContainer2 ());
+	}
+
+	public HashSet<Actionner> GetCommandableActionnerHashSet()
+	{
+		return m_commandableActionners;
 	}
 
 	public List<Actionner> GetCommandableActionnerList()
 	{
-		return m_commandableActionners;
+		return new List<Actionner>(m_commandableActionners);
+	}
+
+	public HashSet<RoomContainer> GetAdjacentRoomContainers()
+	{
+		return m_adjacentRoomContainers;
+	}
+
+	public HashSet<InteractableObject> GetInteractableObjects()
+	{
+		return m_interactabeObjects;
 	}
 
 	public override string ToString()
@@ -57,7 +91,7 @@ public class Room : MonoBehaviour {
 		display += "\n width  = " + Width;
 		display += "\n height = " + Height;
 		display += "\n depth  = " + Depth;
-		display += "\nComposed of " + m_walls.ToArray ().Length + " walls :";
+		display += "\nComposed of " + m_walls.Count + " walls :";
 		foreach (Wall w in m_walls)
 			display += w.ToString ();
 		display += "\nEndRoom";

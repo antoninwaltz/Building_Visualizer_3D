@@ -326,7 +326,7 @@ public class OptimizationController : MonoBehaviour {
 		List<Wall> Room_walls = new List<Wall>();
 
 		//recuperation des espaces d'une pièce
-		List<Room> blocks = rc.GetRooms();
+		List<Room> blocks = rc.GetRoomsAsList();
 		Room[] espaces = blocks.ToArray();
 
 		//recherche de tout les murs

@@ -9,14 +9,6 @@ public class InteractionAgent : MonoBehaviour {
 	void Start () {
 		m_interactableObject = null;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (m_interactableObject != null) 
-		{
-			m_interactableObject.HandleInteractableObject();
-		}
-	}
 
 	public void SetInteractableObject(InteractableObject _interactableObject)
 	{

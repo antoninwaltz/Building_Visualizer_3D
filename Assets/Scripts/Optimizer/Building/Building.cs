@@ -32,8 +32,11 @@ public class Building : MonoBehaviour {
 				}
 			}
 
-			foreach (Floor f in m_floors)
+			foreach (Floor f in m_floors) 
+			{
 				f.InitializeWalls ();
+				f.InitializeAdjacentRoomContainers ();
+			}
 
 			int count = 0;
 			foreach (Floor f in m_floors)
