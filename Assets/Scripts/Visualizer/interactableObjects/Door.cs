@@ -35,7 +35,8 @@ public class Door : InteractableObject{
 
     private void DoorControl(string direction)
     {
-		m_animator.SetTrigger(direction);
+		if(!m_animator != null)
+			m_animator.SetTrigger(direction);
     }
 
 	public override void HandleInteractableObject()

@@ -1,41 +1,44 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BuildingPositionUpdater : MonoBehaviour {
 
 	public int FloorIndex { get; private set;}
 
-	public RoomContainer RoomContainer {get; private set;}
+	private Dictionary<int, float> m_floorHeights;
 
 	void Start () {
 		FloorIndex = 0;	
-		RoomContainer = null;
-	}
+		m_floorHeights = new Dictionary<int, float> ();
 
-
-	public void UpdateRoomContainer(RoomContainer _rc)
-	{
-		RoomContainer = _rc;
-
-		if (_rc != null) {
-			Transform parentTransform = _rc.transform.parent.parent;
-			int index = 0;
-			int i = 0;
-			while (!parentTransform.parent.GetChild (i).Equals (parentTransform)) {
-				if (parentTransform.parent.GetChild (i).tag.Equals ("floor"))
-					++index;
-				++i;
-			}
-			UpdateFloor (index);
-		} 
-		else 
+		Transform b = GameObject.Find ("building").transform;
+		int index = 0;
+		for (int i = 0; i < b.childCount; ++i) 
 		{
-			FloorIndex = -1;
+			if (b.GetChild (i).tag.Equals ("floor")) 
+			{
+				Vector3 v = b.GetChild (i).GetComponent<MeshCollider> ().bounds.max;
+				m_floorHeights.Add (index, v.y);
+				++index;
+			}
 		}
 	}
 
-	public void UpdateFloor(int _floorIndex)
+	public void UpdateFloorWithHeight()
 	{
-		FloorIndex = _floorIndex;
+		bool stop = false;
+		int index = 0;
+		Dictionary<int, float>.Enumerator enumerator = m_floorHeights.GetEnumerator ();
+		while (!stop && enumerator.MoveNext ()) 
+		{
+			KeyValuePair<int, float> pair = enumerator.Current;
+			if (pair.Value > transform.position.y) 
+			{
+				stop = true;
+				FloorIndex = index;
+			}
+			++index;
+		}
 	}
 }

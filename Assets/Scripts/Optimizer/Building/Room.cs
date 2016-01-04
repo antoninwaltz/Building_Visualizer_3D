@@ -19,12 +19,16 @@ public class Room : MonoBehaviour {
 
 	public void Initialize()
 	{
-		Bounds colliderBoxBounds = GetComponent<BoxCollider> ().bounds;
-		Vector3 dimensions = colliderBoxBounds.max - colliderBoxBounds.min;
+		BoxCollider bc = GetComponent<BoxCollider> ();
+		if (bc != null) {
+			
+			Bounds colliderBoxBounds = bc.bounds;
+			Vector3 dimensions = colliderBoxBounds.max - colliderBoxBounds.min;
 
-		Width = dimensions.x;
-		Height = dimensions.y;
-		Depth = dimensions.z;
+			Width = dimensions.x;
+			Height = dimensions.y;
+			Depth = dimensions.z;
+		}
 
 		Surface = Width * Height;
 		Volume = Surface * Depth;

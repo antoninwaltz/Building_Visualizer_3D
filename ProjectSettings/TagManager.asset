@@ -7,6 +7,11 @@ TagManager:
   - interactable_object
   - interactable_object_child
   - unvolontary_interactable_object
+  - room
+  - roomContainer
+  - commandableObject
+  - floor
+  - stairsAndFloor
   layers:
   - Default
   - TransparentFX

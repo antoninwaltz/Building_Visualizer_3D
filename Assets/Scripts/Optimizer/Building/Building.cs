@@ -43,7 +43,7 @@ public class Building : MonoBehaviour {
 				foreach (RoomContainer rc in f.GetRoomContainers())
 					++count;
 	
-			m_textRoomConfiguredCount.text = "0/" + count;
+//			m_textRoomConfiguredCount.text = "0/" + count;
 				
 			m_initialized = true;
 		}

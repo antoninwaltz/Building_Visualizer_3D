@@ -19,6 +19,6 @@ public class MouseLook : MonoBehaviour {
 		m_rotationY += transform.localEulerAngles.y;
 		//m_rotationX = Mathf.Clamp (m_rotationX, m_minimumX, m_maximumX);
 		
-		//transform.localEulerAngles = new Vector3(-m_rotationX, m_rotationY, 0);
+		transform.localEulerAngles = new Vector3(-m_rotationX, m_rotationY, 0);
 	}
 }

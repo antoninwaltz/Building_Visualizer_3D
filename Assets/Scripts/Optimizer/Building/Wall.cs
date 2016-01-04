@@ -37,8 +37,11 @@ public class Wall : MonoBehaviour {
 
 	public void Initialize()
 	{
-		m_room1.AddWall(GetComponent<Wall>());
-		m_roomContainer1 = m_room1.gameObject.transform.parent.gameObject.GetComponent<RoomContainer> ();
+		if (m_room1 != null) 
+		{
+			m_room1.AddWall (GetComponent<Wall> ());
+			m_roomContainer1 = m_room1.gameObject.transform.parent.gameObject.GetComponent<RoomContainer> ();
+		}
 
 		if (m_room2 != null)
 		{
@@ -46,15 +49,18 @@ public class Wall : MonoBehaviour {
 			m_roomContainer2 = m_room2.gameObject.transform.parent.gameObject.GetComponent<RoomContainer> ();
 		}
 
-		Bounds colliderBounds = GetComponent<BoxCollider> ().bounds;
-		Vector3 dimensions = colliderBounds.max - colliderBounds.min;
+		if (GetComponent<BoxCollider> () != null) 
+		{
+			Bounds colliderBounds = GetComponent<BoxCollider> ().bounds;
+			Vector3 dimensions = colliderBounds.max - colliderBounds.min;
 
-		Width = dimensions.x;
-		Height = dimensions.y;
-		Depth = dimensions.z;
+			Width = dimensions.x;
+			Height = dimensions.y;
+			Depth = dimensions.z;
 
-		Surface = Width * Height;
-		Volume = Surface * Depth;
+			Surface = Width * Height;
+			Volume = Surface * Depth;
+		}
 	}
 
 	public RoomContainer GetRoomContainer1()

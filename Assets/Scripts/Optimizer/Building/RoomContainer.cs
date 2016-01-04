@@ -24,9 +24,12 @@ public class RoomContainer : MonoBehaviour {
 
 	private HashSet<RoomContainer> m_adjacentRoomContainers;
 
+	private HashSet<GameObject> m_transitions;
+
 	// Use this for initialization
 	public void Initialize() {
 		m_rooms = new HashSet<Room> ();
+		m_transitions = new HashSet<GameObject> ();
 		Volume = 0;
 		ObjectiveTemperature = float.NaN;
 		CurrentTemperature = float.NaN;
@@ -124,5 +127,10 @@ public class RoomContainer : MonoBehaviour {
 		MaxDeliveredEnergy = float.NaN;
 
 		Prepared = false;
+	}
+
+	public HashSet<GameObject> GetTransitions()
+	{
+		return m_transitions;
 	}
 }

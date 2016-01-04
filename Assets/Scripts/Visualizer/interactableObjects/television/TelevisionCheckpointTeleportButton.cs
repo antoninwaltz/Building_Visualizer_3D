@@ -46,6 +46,6 @@ public class TelevisionCheckpointTeleportButton : TelevisionButton {
 
 		BuildingPositionUpdater updater = m_player.GetComponent<BuildingPositionUpdater> ();
 		int newFloorIndex = m_checkpointContainer.transform.GetChild (checkpointIndex).GetComponent<Checkpoint> ().FloorIndex;
-		updater.UpdateFloor(newFloorIndex);
+		updater.UpdateFloorWithHeight();
 	}
 }
