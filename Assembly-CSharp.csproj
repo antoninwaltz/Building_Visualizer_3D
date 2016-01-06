@@ -118,6 +118,7 @@
      <Compile Include="Assets\Scripts\Visualizer\interactableObjects\television\TelevisionNextButton.cs" />
      <Compile Include="Assets\Scripts\Visualizer\interactableObjects\television\TelevisionPreviousButton.cs" />
      <Compile Include="Assets\Scripts\Visualizer\interactableObjects\television\TelevisionTeleportMenuButton.cs" />
+     <Compile Include="Assets\Scripts\Visualizer\interactableObjects\television\TelevisionsInteractionDispatcher.cs" />
      <Compile Include="Assets\Scripts\Visualizer\interactableObjects\thermostat\Thermostat.cs" />
      <Compile Include="Assets\Scripts\Visualizer\interactableObjects\thermostat\ThermostatButton.cs" />
      <Compile Include="Assets\Scripts\Visualizer\interactableObjects\thermostat\ThermostatCanvasTextUpdater.cs" />

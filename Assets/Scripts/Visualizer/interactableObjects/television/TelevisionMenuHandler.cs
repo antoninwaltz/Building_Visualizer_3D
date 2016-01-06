@@ -24,7 +24,7 @@ public class TelevisionMenuHandler : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	public void Interaction () {
 		if(m_isHovering)
 		{
 			m_hoveredTime += Time.deltaTime;

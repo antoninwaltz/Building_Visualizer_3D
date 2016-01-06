@@ -82,7 +82,6 @@ public class InteractionManager : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
 	public void CheckInteractions() {
 		
 		if (m_interactionAgent.GetInteractableObject () == null) 

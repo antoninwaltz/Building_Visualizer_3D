@@ -11,6 +11,7 @@ public class Television : InteractableObject {
 	private InteractionAgent m_interactionAgent;
 	private Transform m_cardboardTransform;
 	private PlayerMenuHandler m_playerMenuHandler;
+	private TelevisionsInteractionDispatcher m_dispatcher;
 	private GameObject m_playerMenuCanvas;
 
 	private float m_timer;
@@ -29,6 +30,7 @@ public class Television : InteractableObject {
 		m_cardboardTransform = m_bodyMovement.m_cardboardHead.transform.parent;
 
 		m_playerMenuHandler = GameObject.Find ("PlayerMenuManager").GetComponent<PlayerMenuHandler>();
+		m_dispatcher = GameObject.Find ("TelevisionInteractionDispatcher").GetComponent<TelevisionsInteractionDispatcher> ();
 		m_playerMenuCanvas = m_navMeshAgent.transform.GetChild (0).gameObject;
 
 		m_watchingDestination = transform.GetChild (1).position;
@@ -36,11 +38,8 @@ public class Television : InteractableObject {
 
 	public override void Interaction(GameObject _player)
 	{
-		float yDistance = Mathf.Abs((m_player.transform.position - transform.position).y);
-		if (yDistance < 4) 
-		{
-			HandleSameFloorTelevision ();
-		}
+		m_dispatcher.SetInteractingTelevision (this);
+		HandleSameFloorTelevision ();
 	}
 
 	private void HandleSameFloorTelevision()
@@ -86,7 +85,7 @@ public class Television : InteractableObject {
 
 		Vector3 destinationPath = new Vector3 (m_watchingDestination.x, m_player.transform.position.y, m_watchingDestination.z);
 		m_navMeshAgent.SetDestination (m_watchingDestination);
-		m_cardboardTransform.LookAt (transform.position);
+		//m_cardboardTransform.LookAt (transform.position);
 	}
 
 	private void HandleWatchingTelevision()

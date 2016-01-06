@@ -142,7 +142,7 @@ public class Thermostat : InteractableObject {
 
 		Vector3 destinationPath = new Vector3 (m_watchingDestination.x, m_player.transform.position.y, m_watchingDestination.z);
 		m_navMeshAgent.SetDestination (m_watchingDestination);
-		m_cardboardTransform.LookAt (transform.position);
+		//m_cardboardTransform.LookAt (transform.position);
 	}
 
 	private void HandleWatchingThermostat()
